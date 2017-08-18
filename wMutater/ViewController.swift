@@ -6,6 +6,10 @@
 //  Copyright © 2017 Arjun Lahiri. All rights reserved.
 //
 
+
+//There is no losing or losing points in this game
+
+
 import UIKit
 
 
@@ -87,10 +91,12 @@ class ViewController: UIViewController {
                 var lowerWord = String()
                 for word in myWords {
                     // Now populate dictionary from myWords
-                    lowerWord = word.lowercased()
-                    dctWord[lowerWord] = iter
-                    dctNum[iter] = lowerWord
-                    iter += 1
+                    if(word.characters.count > 1){
+                        lowerWord = word.lowercased()
+                        dctWord[lowerWord] = iter
+                        dctNum[iter] = lowerWord
+                        iter += 1
+                    }
                 }
                 
                 print("Inserted", iter, "elements")
@@ -136,7 +142,8 @@ class ViewController: UIViewController {
             let currPerm = String(word[0...k-1])
             
             if (dctWord[currPerm] != nil) {
-                subWordList.insert(currPerm)
+                //if len currPerm > 1
+                    subWordList.insert(currPerm)
             }
             
             return
@@ -232,29 +239,29 @@ class ViewController: UIViewController {
     }
     
     @IBAction func enteredWord(_ sender: UITextField) {
-        print(sender.text)
-        if(mutatWord.text != ""){
-            var subWord = sender.text!
-          
-            
-            
-            
-            
-            if (!enteredWords.contains(sender.text!)) {
+        //print(sender.text)
+        var subWord = ""
+        for character in ((sender.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        
+        if(mutatWord.text != "" && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
                     
                         numSubWordsLeft -= 1
                         wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                         status.text = "Correct"
-                        print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                        //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                         enteredWords.insert(subWord)
                         score += 1
                         ScoreOfGame.text = "Score: "+String(score)
                         sender.text = ""
                 }
                 else {
-                    print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                   // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
                     wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                     status.text = "Incorrect"
                     ScoreOfGame.text = "Score: "+String(score)
@@ -262,7 +269,7 @@ class ViewController: UIViewController {
                 }
             }
             else {
-                print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
                 wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                 status.text = "Incorrect"
                 ScoreOfGame.text = "Score: "+String(score)
