@@ -37,15 +37,18 @@ class ViewController: UIViewController {
     var score = Int(0)
     
     //Timer
-    var seconds = 120
+    var seconds = 500
     var timer = Timer()
     var isTimerRunning = false
+    
+    //Delay time when typing in word
+    var delaySeconds = 2
     
     // END: GLOBAL VARIABLES
     
     // BEGIN: Functions
     
-    //2 functions below to run timer
+    // BEGIN: 2 functions to run timer
     func runTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
         
@@ -54,8 +57,21 @@ class ViewController: UIViewController {
     func updateTimer(){
         seconds -= 1
         TimerOfTheGame.text = "Timer: \(seconds)"
-        
     }
+    //END: 2 functions to run timer
+    
+    
+    //BEGIIN: 2 delay functions
+    func runDelayTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateDelayTimer)), userInfo: nil, repeats: true)
+    }
+    
+    func updateDelayTimer(){
+        while(seconds > -1){
+            seconds -= 1
+        }
+    }
+    //END: 2 delay functions
     
     
     // Read word list and create the dictionary
@@ -155,14 +171,10 @@ class ViewController: UIViewController {
     // BEGIN ACTIONS
     
     //Let's get started text
-    @IBOutlet var getStarted: UILabel!
     
 
     //The word that is chosen randomly from the word dictionary
     @IBOutlet var mutatWord: UILabel!
-    
-    //Enter a subword of the random word
-    @IBOutlet var enterWord: UITextField!
     
     //Correct combination of letters in random word and is word?
     @IBOutlet var status: UILabel!
@@ -184,6 +196,7 @@ class ViewController: UIViewController {
         timesPressed += 1
         if(timesPressed == 1){
             runTimer()
+            
             var validWord = false
             currentWord = String()
             let numWords = dctWord.count
@@ -218,42 +231,47 @@ class ViewController: UIViewController {
         }
     }
     
-
-    
-        @IBAction func submitAnswer(_ sender: Any) {
+    @IBAction func enteredWord(_ sender: UITextField) {
+        print(sender.text)
+        if(mutatWord.text != ""){
+            var subWord = sender.text!
+          
             
-            var subWord  = enterWord.text
-            subWord = subWord?.lowercased()
-
-            if (!enteredWords.contains(_:subWord!)) {
-                if (WordCheck(word:currentWord, subWord: subWord!) == true) {
-                    score += 1
-                    ScoreOfGame.text = "Score: "+String(score)
-                    numSubWordsLeft -= 1
-                    wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
-                    status.text = "Correct"
-                    print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord!)
-                
+            
+            
+            
+            if (!enteredWords.contains(sender.text!)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                        numSubWordsLeft -= 1
+                        wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
+                        status.text = "Correct"
+                        print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                        enteredWords.insert(subWord)
+                        score += 1
+                        ScoreOfGame.text = "Score: "+String(score)
+                        sender.text = ""
                 }
                 else {
-                    score -= 1
                     print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
                     wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
-                    ScoreOfGame.text = "Score: "+String(score)
                     status.text = "Incorrect"
+                    ScoreOfGame.text = "Score: "+String(score)
+                    
                 }
             }
             else {
-                score -= 1
                 print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
                 wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
-                ScoreOfGame.text = "Score: "+String(score)
                 status.text = "Incorrect"
+                ScoreOfGame.text = "Score: "+String(score)
             }
-            
-            
         }
+
+    }
+  
+    
     
   
     
@@ -262,9 +280,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = InitDictionary(fileName:"words");
-        if(TimerOfTheGame.text == "Timer: \(-1)"){
-            exit(32)
-        }
         
         // Do any additional setup after loading the view, typically from a nib.
     }
