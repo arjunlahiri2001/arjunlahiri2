@@ -11,6 +11,7 @@
 
 
 import UIKit
+import AVFoundation
 
 
 
@@ -19,6 +20,13 @@ class ViewController: UIViewController {
     ///////////////////////
 
     // BEGIN: GLOBAL VARIABLES
+    
+    var player:AVAudioPlayer = AVAudioPlayer()
+    
+    //activity loading
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    
     // First dictionary maps words to a sequence number (use this to check if a word exists)
     var dctWord = [String: Int]();
     
@@ -196,6 +204,7 @@ class ViewController: UIViewController {
     @IBOutlet var TimerOfTheGame: UILabel!
     
     
+   
     
     //New Turn: Generate a new word from the dictionary
     var timesPressed = 0
@@ -207,6 +216,9 @@ class ViewController: UIViewController {
             var validWord = false
             currentWord = String()
             let numWords = dctWord.count
+            if(mutatWord.text != currentWord){
+                activityIndicator.startAnimating()
+            }
             
             // reset the list of entered words to empty
             enteredWords = Set<String>()
@@ -218,10 +230,11 @@ class ViewController: UIViewController {
                 if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
                     
                     // DEBUG - REMOVE LATER
-                    print("Your lucky word is:", currentWord)
+                    //print("Your lucky word is:", currentWord)
                     
                     mutatWord.text = currentWord
                     validWord = true
+                   
                 }
             }
             
@@ -234,12 +247,14 @@ class ViewController: UIViewController {
             wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
 
         }else{
-            print("Already chose word, FINISH!!!")
+          //  print("Already chose word, FINISH!!!")
         }
     }
     
     @IBAction func enteredWord(_ sender: UITextField) {
         //print(sender.text)
+        activityIndicator.stopAnimating()
+
         var subWord = ""
         for character in ((sender.text)?.characters)!{
             subWord += String(character)
@@ -253,6 +268,7 @@ class ViewController: UIViewController {
                     
                         numSubWordsLeft -= 1
                         wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
+                        player.play() //plays sound when correct
                         status.text = "Correct"
                         //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                         enteredWords.insert(subWord)
@@ -287,6 +303,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = InitDictionary(fileName:"words");
+        
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        view.addSubview(activityIndicator)
+        
+        do{
+            let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
+            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+        }
+        catch{
+            //ERROR
+        }
         
         // Do any additional setup after loading the view, typically from a nib.
     }

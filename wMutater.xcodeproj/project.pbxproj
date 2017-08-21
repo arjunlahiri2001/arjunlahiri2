@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC26536E1F460EE10025E1B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26536D1F460EE10025E1B5 /* MainViewController.swift */; };
+		DC2B3DFB1F4B9D7C00E77E51 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DC2B3DFA1F4B9D7C00E77E51 /* correct.mp3 */; };
 		DC6E26E71F43D870006787C3 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC6E26E61F43D870006787C3 /* words.txt */; };
 		DC92DE761F42A42E0074B41C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92DE751F42A42E0074B41C /* AppDelegate.swift */; };
 		DC92DE781F42A42E0074B41C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92DE771F42A42E0074B41C /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		DC26536D1F460EE10025E1B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DC2B3DFA1F4B9D7C00E77E51 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = correct.mp3; path = ../../correct.mp3; sourceTree = "<group>"; };
 		DC6E26E61F43D870006787C3 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = SOURCE_ROOT; };
 		DC92DE721F42A42E0074B41C /* wMutater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wMutater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC92DE751F42A42E0074B41C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				DC92DE751F42A42E0074B41C /* AppDelegate.swift */,
 				DC92DE771F42A42E0074B41C /* ViewController.swift */,
 				DC6E26E61F43D870006787C3 /* words.txt */,
+				DC2B3DFA1F4B9D7C00E77E51 /* correct.mp3 */,
 				DC92DE791F42A42E0074B41C /* Main.storyboard */,
 				DC26536D1F460EE10025E1B5 /* MainViewController.swift */,
 				DC92DE7C1F42A42E0074B41C /* Assets.xcassets */,
@@ -129,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC2B3DFB1F4B9D7C00E77E51 /* correct.mp3 in Resources */,
 				DC92DE801F42A42E0074B41C /* LaunchScreen.storyboard in Resources */,
 				DC92DE7D1F42A42E0074B41C /* Assets.xcassets in Resources */,
 				DC6E26E71F43D870006787C3 /* words.txt in Resources */,
