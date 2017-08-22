@@ -21,10 +21,18 @@ class ViewController: UIViewController {
 
     // BEGIN: GLOBAL VARIABLES
     
+    
+    @IBOutlet weak var userName: UILabel!
+    
     var player:AVAudioPlayer = AVAudioPlayer()
+    
+    var correctWords = 0
+
     
     //activity loading
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    var flag = false
     
     
     // First dictionary maps words to a sequence number (use this to check if a word exists)
@@ -49,12 +57,10 @@ class ViewController: UIViewController {
     var score = Int(0)
     
     //Timer
-    var seconds = 500
+    var seconds = Int(0)
     var timer = Timer()
     var isTimerRunning = false
     
-    //Delay time when typing in word
-    var delaySeconds = 2
     
     // END: GLOBAL VARIABLES
     
@@ -73,18 +79,7 @@ class ViewController: UIViewController {
     //END: 2 functions to run timer
     
     
-    //BEGIIN: 2 delay functions
-    func runDelayTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateDelayTimer)), userInfo: nil, repeats: true)
-    }
-    
-    func updateDelayTimer(){
-        while(seconds > -1){
-            seconds -= 1
-        }
-    }
-    //END: 2 delay functions
-    
+
     
     // Read word list and create the dictionary
     func InitDictionary(fileName: String) -> Int        
@@ -206,61 +201,16 @@ class ViewController: UIViewController {
     
    
     
-    //New Turn: Generate a new word from the dictionary
-    var timesPressed = 0
-    @IBAction func newWord(_ sender: Any) {
-        timesPressed += 1
-        if(timesPressed == 1){
-            runTimer()
-            
-            var validWord = false
-            currentWord = String()
-            let numWords = dctWord.count
-            if(mutatWord.text != currentWord){
-                activityIndicator.startAnimating()
-            }
-            
-            // reset the list of entered words to empty
-            enteredWords = Set<String>()
-            
-            // Generate a new word between 10 and 3 characters
-            while !validWord {
-                let wordIdx = arc4random_uniform(_:UInt32(numWords))
-                currentWord = dctNum[Int(wordIdx)]!
-                if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
-                    
-                    // DEBUG - REMOVE LATER
-                    //print("Your lucky word is:", currentWord)
-                    
-                    mutatWord.text = currentWord
-                    validWord = true
-                   
-                }
-            }
-            
-            // Now generate the list of subwords for the word that was just given to the user
-            // initialize list of actual subwords and the number of subwords left to be guessed
-            subWordList = Set<String>()
-            var wordArray:Array<Character> = Array(currentWord.characters)
-            PermuteAll(word: &wordArray)
-            numSubWordsLeft = subWordList.count
-            wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
-
-        }else{
-          //  print("Already chose word, FINISH!!!")
-        }
-    }
+   
     
     @IBAction func enteredWord(_ sender: UITextField) {
-        //print(sender.text)
-        activityIndicator.stopAnimating()
+        
 
         var subWord = ""
         for character in ((sender.text)?.characters)!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        
         if(mutatWord.text != "" && subWord.characters.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
@@ -272,7 +222,12 @@ class ViewController: UIViewController {
                         status.text = "Correct"
                         //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                         enteredWords.insert(subWord)
-                        score += 1
+                        correctWords += 1
+                        if(correctWords <= 2){
+                            score += 1
+                        }else{
+                            score += seconds 
+                        }
                         ScoreOfGame.text = "Score: "+String(score)
                         sender.text = ""
                 }
@@ -299,16 +254,16 @@ class ViewController: UIViewController {
   
     
  
-    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        _ = InitDictionary(fileName:"words");
         
+        //have activity indicator to show that everything is being setup
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         
+        //reference sound file for the game
         do{
             let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
             try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
@@ -316,8 +271,56 @@ class ViewController: UIViewController {
         catch{
             //ERROR
         }
+
+        //initialize all words into the dictionary
+        _ = InitDictionary(fileName:"words");
+        
+        //Load the view
+        super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //Stop the activityIndicator animating once  everything is truly set up
+            activityIndicator.stopAnimating()
+        //Generate the random word and start the timer
+            userName.text = name
+            var validWord = false
+            currentWord = String()
+            let numWords = dctWord.count
+            
+            
+            // reset the list of entered words to empty
+            enteredWords = Set<String>()
+            
+            // Generate a new word between 10 and 3 characters
+            while !validWord {
+                let wordIdx = arc4random_uniform(_:UInt32(numWords))
+                currentWord = dctNum[Int(wordIdx)]!
+                if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
+                    
+                    // DEBUG - REMOVE LATER
+                    //print("Your lucky word is:", currentWord)
+                    
+                    mutatWord.text = currentWord
+                    validWord = true
+                    seconds = (((currentWord.characters.count)*10) + 100)
+                    runTimer()
+                    
+                }
+            }
+            
+            // Now generate the list of subwords for the word that was just given to the user
+            // initialize list of actual subwords and the number of subwords left to be guessed
+            subWordList = Set<String>()
+            var wordArray:Array<Character> = Array(currentWord.characters)
+            PermuteAll(word: &wordArray)
+            numSubWordsLeft = subWordList.count
+            wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
+            
+      
     }
 
     override func didReceiveMemoryWarning() {

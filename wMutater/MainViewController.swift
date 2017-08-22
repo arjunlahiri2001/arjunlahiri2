@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
     @IBAction func playGame(_ sender: Any) {
         if(enterName.text != ""){
             name = enterName.text!
+            performSegue(withIdentifier: "segue", sender: self)
         }
         
     }
