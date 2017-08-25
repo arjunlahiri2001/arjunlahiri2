@@ -13,6 +13,9 @@
 import UIKit
 import AVFoundation
 
+// Read word list and create the dictionary
+
+
 
 
 class ViewController: UIViewController {
@@ -22,9 +25,6 @@ class ViewController: UIViewController {
     // BEGIN: GLOBAL VARIABLES
     
     
-    @IBOutlet weak var userName: UILabel!
-    
-    var player:AVAudioPlayer = AVAudioPlayer()
     
     var correctWords = 0
 
@@ -32,16 +32,9 @@ class ViewController: UIViewController {
     //activity loading
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    var flag = false
     
     
-    // First dictionary maps words to a sequence number (use this to check if a word exists)
-    var dctWord = [String: Int]();
-    
-    // Second dictionary maps numbers to words (use this to generate a random word)
-    var dctNum = [Int:String]();
-    
-    // The current word that the user will have to generate subwords for
+        // The current word that the user will have to generate subwords for
     var currentWord = String()
     
     // All the legal subwords of a wordInDict
@@ -66,50 +59,43 @@ class ViewController: UIViewController {
     
     // BEGIN: Functions
     
-    // BEGIN: 2 functions to run timer
+    // BEGIN: 3 functions relating to timer
     func runTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-        
+
     }
     
     func updateTimer(){
-        seconds -= 1
-        TimerOfTheGame.text = "Timer: \(seconds)"
+        if(TimerOfTheGame.text != String()){
+            TimerOfTheGame.text = "Timer: \(seconds)"
+        }
+        if(seconds >= -1){
+            if(seconds == -1){
+                mutatWord.text = String()
+                status.text = String()
+                ScoreOfGame.text = String()
+                resultLabel.text = String()
+                TimerOfTheGame.text = String()
+                
+                seconds = Int(0)
+                createButton()
+                }else{
+                    seconds -= 1
+                //   resetButton.addTarget(self, action: #selector(resetGame(resetButton:)), for: .touchUpInside)
+                }
+        }
     }
-    //END: 2 functions to run timer
+    
+    func resetTimer(){
+        timer.invalidate()
+ 
+    }
+    //END: 3 functions relating to timer
     
     
 
     
-    // Read word list and create the dictionary
-    func InitDictionary(fileName: String) -> Int        
-    {
-        print(Bundle.main.resourceURL!)
-        let path2 = Bundle.main.path(forResource: "words", ofType: "txt")
-        if (path2 != nil) {
-            do {
-                let data = try String(contentsOfFile: path2!, encoding: .utf8)
-                let myWords = data.components(separatedBy: .newlines)
-                var iter = 0
-                var lowerWord = String()
-                for word in myWords {
-                    // Now populate dictionary from myWords
-                    if(word.characters.count > 1){
-                        lowerWord = word.lowercased()
-                        dctWord[lowerWord] = iter
-                        dctNum[iter] = lowerWord
-                        iter += 1
-                    }
-                }
-                
-                print("Inserted", iter, "elements")
-            } catch {
-                print(error)
-            }
-        }
-        
-        return 0;
-    }
+
     
  
     // Determine if a word is a valid subWord of the given word
@@ -192,8 +178,9 @@ class ViewController: UIViewController {
     //Score
     @IBOutlet var ScoreOfGame: UILabel!
     
-    //Number of subwords left in the random word
-    @IBOutlet var wordsLeft: UILabel!
+    //Result message label
+    @IBOutlet var resultLabel: UILabel!
+    
     
     //Print the timer
     @IBOutlet var TimerOfTheGame: UILabel!
@@ -211,13 +198,12 @@ class ViewController: UIViewController {
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if(mutatWord.text != "" && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
                     
                         numSubWordsLeft -= 1
-                        wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                         player.play() //plays sound when correct
                         status.text = "Correct"
                         //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
@@ -229,21 +215,23 @@ class ViewController: UIViewController {
                             score += seconds 
                         }
                         ScoreOfGame.text = "Score: "+String(score)
+                        mutatWord.textColor = UIColor.green
                         sender.text = ""
                 }
                 else {
                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                     status.text = "Incorrect"
                     ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
                     
                 }
             }
             else {
                 //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
                 status.text = "Incorrect"
                 ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+
             }
         }
 
@@ -255,38 +243,88 @@ class ViewController: UIViewController {
     
  
     override func viewDidLoad() {
-        
+       
+
         //have activity indicator to show that everything is being setup
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
-        
-        //reference sound file for the game
-        do{
-            let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
-            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
-        }
-        catch{
-            //ERROR
-        }
-
-        //initialize all words into the dictionary
-        _ = InitDictionary(fileName:"words");
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        resetButton.addTarget(self, action: #selector(resetGameLayout(resetButton:)), for: .touchUpInside)
         
         //Load the view
         super.viewDidLoad()
-        
-        
+         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    var resetButton = UIButton()
+    
+    func createButton(){
+        resetButton.setTitle("Reset", for: .normal)
+        resetButton.setTitleColor(UIColor.yellow, for: .normal)
+        resetButton.backgroundColor = UIColor.lightGray
+        resetButton.layer.borderWidth = 2
+        resetButton.layer.cornerRadius = 18
+        resetButton.frame = CGRect(x: view.frame.width/2 - 50, y: view.frame.height/2 - 18, width: 100, height: 36)
+        view.addSubview(resetButton)
+    }
+    
+    
+    func resetGameLayout(resetButton: UIButton){
+        resetTimer() //reset timer
+        score = 0
+        var validWord = false
+        currentWord = String()
+        let numWords = dctWord.count
+        self.resetButton.removeFromSuperview()
+        
+        resultLabel.text = "Result Message:"
+        status.text = "Correct/Incorrect"
+        ScoreOfGame.text = "Score: \(0)"
+        
+        // reset the list of entered words to empty
+        enteredWords = Set<String>()
+        
+        // Generate a new word between 10 and 3 characters
+        while !validWord {
+            let wordIdx = arc4random_uniform(_:UInt32(numWords))
+            currentWord = dctNum[Int(wordIdx)]!
+            if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
+                
+                // DEBUG - REMOVE LATER
+                //print("Your lucky word is:", currentWord)
+                
+                mutatWord.text = currentWord
+                mutatWord.textColor = UIColor.black
+                validWord = true
+                seconds = (((currentWord.characters.count)*10) + 100)
+                TimerOfTheGame.text = "Timer: \(seconds)"
+                runTimer()
+                
+            }
+        }
+        
+        // Now generate the list of subwords for the word that was just given to the user
+        // initialize list of actual subwords and the number of subwords left to be guessed
+        subWordList = Set<String>()
+        var wordArray:Array<Character> = Array(currentWord.characters)
+        PermuteAll(word: &wordArray)
+
+        
+    }
+
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
-        //Stop the activityIndicator animating once  everything is truly set up
+        
+            //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
-        //Generate the random word and start the timer
-            userName.text = name
+             UIApplication.shared.endIgnoringInteractionEvents()
+            //Generate the random word and start the timer
             var validWord = false
             currentWord = String()
             let numWords = dctWord.count
@@ -317,11 +355,13 @@ class ViewController: UIViewController {
             subWordList = Set<String>()
             var wordArray:Array<Character> = Array(currentWord.characters)
             PermuteAll(word: &wordArray)
-            numSubWordsLeft = subWordList.count
-            wordsLeft.text = "# of subwords left: "+String(numSubWordsLeft)
             
+           resetButton.addTarget(self, action: #selector(resetGameLayout(resetButton:)), for: .touchUpInside)
+     
       
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -330,4 +370,9 @@ class ViewController: UIViewController {
 
 
 }
- 
+
+
+
+
+
+

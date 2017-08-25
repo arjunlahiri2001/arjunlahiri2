@@ -7,23 +7,84 @@
 //
 
 import UIKit
+import AVFoundation
 
-var name = ""
+// First dictionary maps words to a sequence number (use this to check if a word exists)
+var dctWord = [String: Int]();
+
+// Second dictionary maps numbers to words (use this to generate a random word)
+var dctNum = [Int:String]();
+
+var player:AVAudioPlayer = AVAudioPlayer()
+
+var timesVisited = 0
+
+ 
+func InitDictionary(fileName: String) -> Int
+{
+    print(Bundle.main.resourceURL!)
+    let path2 = Bundle.main.path(forResource: "words", ofType: "txt")
+    if (path2 != nil) {
+        do {
+            let data = try String(contentsOfFile: path2!, encoding: .utf8)
+            let myWords = data.components(separatedBy: .newlines)
+            var iter = 0
+            var lowerWord = String()
+            for word in myWords {
+                // Now populate dictionary from myWords
+                if(word.characters.count > 1){
+                    lowerWord = word.lowercased()
+                    dctWord[lowerWord] = iter
+                    dctNum[iter] = lowerWord
+                    iter += 1
+                }
+            }
+            
+            print("Inserted", iter, "elements")
+        } catch {
+            print(error)
+        }
+    }
+    
+    return 0;
+}
+
+
+
+
+
 
 
 class MainViewController: UIViewController {
     
+//    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    @IBOutlet weak var enterName: UITextField!
     
     @IBAction func playGame(_ sender: Any) {
-        if(enterName.text != ""){
-            name = enterName.text!
-            performSegue(withIdentifier: "segue", sender: self)
-        }
-        
+//        activityIndicator.center = self.view.center
+//        activityIndicator.hidesWhenStopped = true
+//        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+//        view.addSubview(activityIndicator)
+//        activityIndicator.startAnimating()
+        performSegue(withIdentifier: "segue", sender: self)
     }
     override func viewDidLoad() {
+        timesVisited += 1
+            //reference sound file for the game
+        if(timesVisited == 1){
+            do{
+                let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
+                try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            }
+            catch{
+                //ERROR
+            }
+        
+            //initialize all words into the dictionary
+            _ = InitDictionary(fileName:"words");
+
+        }
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
