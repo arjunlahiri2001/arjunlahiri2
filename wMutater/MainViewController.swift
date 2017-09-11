@@ -15,6 +15,11 @@ var dctWord = [String: Int]();
 // Second dictionary maps numbers to words (use this to generate a random word)
 var dctNum = [Int:String]();
 
+var Scores = [Int]()
+var HighScores = [Int]()
+
+
+
 var player:AVAudioPlayer = AVAudioPlayer()
 
 var timesVisited = 0
@@ -49,6 +54,22 @@ func InitDictionary(fileName: String) -> Int
     return 0;
 }
 
+//func addHighScores(fileName: String) -> Int
+//{
+//    print(Bundle.main.resourceURL!)
+//    let path2 = Bundle.main.path(forResource: "highScores", ofType: "txt")
+//    if (path2 != nil) {
+//        do {
+//            
+//            
+//        } catch {
+//            print(error)
+//        }
+//    }
+//    
+//    return 0;
+//}
+
 
 
 
@@ -57,19 +78,21 @@ func InitDictionary(fileName: String) -> Int
 
 class MainViewController: UIViewController {
     
-//    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     
     @IBAction func playGame(_ sender: Any) {
-//        activityIndicator.center = self.view.center
-//        activityIndicator.hidesWhenStopped = true
-//        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-//        view.addSubview(activityIndicator)
-//        activityIndicator.startAnimating()
+    
         performSegue(withIdentifier: "segue", sender: self)
     }
     override func viewDidLoad() {
         timesVisited += 1
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
             //reference sound file for the game
         if(timesVisited == 1){
             do{
@@ -82,6 +105,12 @@ class MainViewController: UIViewController {
         
             //initialize all words into the dictionary
             _ = InitDictionary(fileName:"words");
+            
+            //have activity indicator to show that everything is being setup
+           
+
+        
+            //Load the view
 
         }
         
@@ -90,6 +119,11 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
