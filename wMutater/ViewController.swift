@@ -19,7 +19,7 @@ import AVFoundation
 
 
 class ViewController: UIViewController {
-
+ 
     ///////////////////////
 
     // BEGIN: GLOBAL VARIABLES
@@ -48,6 +48,8 @@ class ViewController: UIViewController {
     
     // Current score
     var score = Int(0)
+    
+    
     
     //Timer
     var seconds = Int(0)
@@ -99,6 +101,40 @@ class ViewController: UIViewController {
         }else{
             HighScores.append(Scores.max()!)
             print(HighScores)
+            newHighScore.text = "New High Score: \(Scores.max()!)"
+            
+            //set path for the high score file
+            print(Bundle.main.resourceURL!)
+            let path = Bundle.main.path(forResource: "highScores", ofType: "txt")
+            
+            //write the file
+            
+            let highscore = "High Score: \(Scores.max())";
+            
+            do{
+                try highscore.write(toFile: path!, atomically: true, encoding: String.Encoding.utf8)
+                print("Writing file")
+                print(highscore)
+            }catch let error as NSError{
+                print(error);
+            }
+            
+            //read the file
+            
+            do{
+                let data = try String(contentsOfFile: path!, encoding: .utf8)
+                _ = data.components(separatedBy: .newlines)
+                print("Reading file")
+                print(data)
+            } catch {
+                print(error)
+            }
+
+            
+
+            
+            
+            
         }
     }
     
@@ -187,6 +223,10 @@ class ViewController: UIViewController {
     //Score
     @IBOutlet var ScoreOfGame: UILabel!
     
+    //New High Score text field
+    @IBOutlet var newHighScore: UILabel!
+    
+    
     //Result message label
     @IBOutlet var resultLabel: UILabel!
     
@@ -250,7 +290,7 @@ class ViewController: UIViewController {
     
   
     
- 
+  
     override func viewDidLoad() {
        
 
@@ -278,9 +318,10 @@ class ViewController: UIViewController {
         if(timeNoGame == 1){
             Scores.append(score)
             highScores()
+            
         }
        
-        resetButton.setTitle("Reset", for: .normal)
+        resetButton.setTitle("Play Again", for: .normal)
         resetButton.setTitleColor(UIColor.yellow, for: .normal)
         resetButton.backgroundColor = UIColor.lightGray
         resetButton.layer.borderWidth = 2
@@ -294,6 +335,7 @@ class ViewController: UIViewController {
         timeNoGame = 0
         resetTimer() //reset timer
         score = 0
+        newHighScore.text = ""
         var validWord = false
         currentWord = String()
         let numWords = dctWord.count
@@ -318,7 +360,7 @@ class ViewController: UIViewController {
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = (((currentWord.characters.count)*10) + 100)
+                seconds = 10//(((currentWord.characters.count)*10) + 100)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -407,7 +449,7 @@ class ViewController: UIViewController {
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = (((currentWord.characters.count)*10) + 100)
+                    seconds = 10//(((currentWord.characters.count)*10) + 100)
                     runTimer()
                     
                 }

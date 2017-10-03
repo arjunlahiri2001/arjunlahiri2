@@ -17,7 +17,7 @@ var dctNum = [Int:String]();
 
 var Scores = [Int]()
 var HighScores = [Int]()
-
+ 
 
 
 var player:AVAudioPlayer = AVAudioPlayer()
@@ -58,7 +58,7 @@ func InitDictionary(fileName: String) -> Int
 //{
 //    print(Bundle.main.resourceURL!)
 //    let path2 = Bundle.main.path(forResource: "highScores", ofType: "txt")
-//    if (path2 != nil) {
+//    if (path2 != nil) { 
 //        do {
 //            
 //            
@@ -87,12 +87,6 @@ class MainViewController: UIViewController {
     }
     override func viewDidLoad() {
         timesVisited += 1
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
             //reference sound file for the game
         if(timesVisited == 1){
             do{
@@ -119,11 +113,6 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
