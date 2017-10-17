@@ -105,17 +105,16 @@ class ViewController: UIViewController {
             
             //set path for the high score file
             print(Bundle.main.resourceURL!)
-            let path = Bundle.main.path(forResource: "highScores", ofType: "txt")
             
             //write the file
             
-            let highscore = "High Score: \(Scores.max())";
+            let highscore = "\(Scores.max())";
             
             do{
-                try highscore.write(toFile: path!, atomically: true, encoding: String.Encoding.utf8)
+                try highscore.write(toFile: path!, atomically: false, encoding: String.Encoding.utf8)
                 print("Writing file")
                 print(highscore)
-            }catch let error as NSError{
+            }catch let error as NSError{ 
                 print(error);
             }
             
@@ -126,6 +125,8 @@ class ViewController: UIViewController {
                 _ = data.components(separatedBy: .newlines)
                 print("Reading file")
                 print(data)
+                
+                
             } catch {
                 print(error)
             }
@@ -133,11 +134,13 @@ class ViewController: UIViewController {
             
 
             
-            
-            
         }
     }
     
+    func readScores(){
+        
+        
+    }
 
     
 

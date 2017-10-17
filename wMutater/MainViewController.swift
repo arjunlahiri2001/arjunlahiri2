@@ -22,6 +22,9 @@ var HighScores = [Int]()
 
 var player:AVAudioPlayer = AVAudioPlayer()
 
+var path = Bundle.main.path(forResource: "highScores", ofType: "txt")
+// high scores 
+
 var timesVisited = 0
 
  
@@ -54,28 +57,6 @@ func InitDictionary(fileName: String) -> Int
     return 0;
 }
 
-//func addHighScores(fileName: String) -> Int
-//{
-//    print(Bundle.main.resourceURL!)
-//    let path2 = Bundle.main.path(forResource: "highScores", ofType: "txt")
-//    if (path2 != nil) { 
-//        do {
-//            
-//            
-//        } catch {
-//            print(error)
-//        }
-//    }
-//    
-//    return 0;
-//}
-
-
-
-
-
-
-
 class MainViewController: UIViewController {
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -92,6 +73,7 @@ class MainViewController: UIViewController {
             do{
                 let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
                 try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+                
             }
             catch{
                 //ERROR
