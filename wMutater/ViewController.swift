@@ -26,6 +26,20 @@ class ViewController: UIViewController {
     
     
     
+    
+    var path = Bundle.main.path(forResource: "highScores", ofType: "txt")
+    // high Score file
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     var correctWords = 0
 
     
@@ -95,6 +109,37 @@ class ViewController: UIViewController {
     }
     //END: 3 functions relating to timer
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //High Score file writing-------------------------------------------------
     func highScores(){
         if(HighScores.contains(Scores.max()!)){
             
@@ -104,44 +149,59 @@ class ViewController: UIViewController {
             newHighScore.text = "New High Score: \(Scores.max()!)"
             
             //set path for the high score file
+
             print(Bundle.main.resourceURL!)
             
             //write the file
             
-            let highscore = "\(Scores.max())";
+            let highscore = "High Score: \(Scores.max())";
             
             do{
-                try highscore.write(toFile: path!, atomically: false, encoding: String.Encoding.utf8)
+                try highscore.write(toFile: path!, atomically: true, encoding: String.Encoding.utf8)
                 print("Writing file")
-                print(highscore)
-            }catch let error as NSError{ 
+            }catch let error as NSError{
                 print(error);
             }
             
             //read the file
-            
-            do{
-                let data = try String(contentsOfFile: path!, encoding: .utf8)
-                _ = data.components(separatedBy: .newlines)
-                print("Reading file")
-                print(data)
+                do{
+                    let data = try String(contentsOfFile: path!, encoding: .utf8)
+                    let lines = data.components(separatedBy: .newlines)
+                    print("Reading file")
+                    print(lines.count)
                 
-                
-            } catch {
-                print(error)
-            }
-
-            
-
+                } catch {
+                    print(error)
+                }
             
         }
     }
     
-    func readScores(){
-        
-        
-    }
-
+    //-------------------------------------------------------------------------------
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     

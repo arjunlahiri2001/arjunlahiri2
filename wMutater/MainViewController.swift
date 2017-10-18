@@ -22,8 +22,7 @@ var HighScores = [Int]()
 
 var player:AVAudioPlayer = AVAudioPlayer()
 
-var path = Bundle.main.path(forResource: "highScores", ofType: "txt")
-// high scores 
+// high scores
 
 var timesVisited = 0
 
@@ -39,7 +38,8 @@ func InitDictionary(fileName: String) -> Int
             var iter = 0
             var lowerWord = String()
             for word in myWords {
-                // Now populate dictionary from myWords
+                // Now populate dictionary from myWords 
+                
                 if(word.characters.count > 1){
                     lowerWord = word.lowercased()
                     dctWord[lowerWord] = iter
