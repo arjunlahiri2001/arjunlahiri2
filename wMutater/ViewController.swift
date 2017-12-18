@@ -88,12 +88,37 @@ class ViewController: UIViewController {
         if(seconds >= -1){
             if(seconds == -1){
                 mutatWord.text = String()
-                status.text = String()
                 ScoreOfGame.text = String()
-                resultLabel.text = String()
                 TimerOfTheGame.text = String()
-                
                 seconds = Int(0)
+                qButton.isHidden = true
+                wButton.isHidden = true
+                eButton.isHidden = true
+                rButton.isHidden = true
+                tButton.isHidden = true
+                yButton.isHidden = true
+                uButton.isHidden = true
+                iButton.isHidden = true
+                oButton.isHidden = true
+                pButton.isHidden = true
+                aButton.isHidden = true
+                sButton.isHidden = true
+                dButton.isHidden = true
+                fButton.isHidden = true
+                gButton.isHidden = true
+                hButton.isHidden = true
+                jButton.isHidden = true
+                kButton.isHidden = true
+                lButton.isHidden = true
+                zButton.isHidden = true
+                xButton.isHidden = true
+                cButton.isHidden = true
+                vButton.isHidden = true
+                bButton.isHidden = true
+                nButton.isHidden = true
+                mButton.isHidden = true
+                deleteButton.isHidden = true
+
                 createButton()
                 
                 }else{
@@ -202,9 +227,7 @@ class ViewController: UIViewController {
     
     
     
-    
 
-    
  
     // Determine if a word is a valid subWord of the given word
     // Also check if it is in the dictionary
@@ -280,8 +303,7 @@ class ViewController: UIViewController {
     //The word that is chosen randomly from the word dictionary
     @IBOutlet var mutatWord: UILabel!
     
-    //Correct combination of letters in random word and is word?
-    @IBOutlet var status: UILabel!
+ 
     
     //Score
     @IBOutlet var ScoreOfGame: UILabel!
@@ -290,23 +312,120 @@ class ViewController: UIViewController {
     @IBOutlet var newHighScore: UILabel!
     
     
-    //Result message label
-    @IBOutlet var resultLabel: UILabel!
-    
+  
     
     //Print the timer
     @IBOutlet var TimerOfTheGame: UILabel!
     
     
-   
     
-   
-    
-    @IBAction func enteredWord(_ sender: UITextField) {
-        
+    @IBOutlet weak var qButton: UIButton!
+    @IBOutlet weak var wButton: UIButton!
+    @IBOutlet weak var eButton: UIButton!
+    @IBOutlet weak var rButton: UIButton!
+    @IBOutlet weak var tButton: UIButton!
+    @IBOutlet weak var yButton: UIButton!
+    @IBOutlet weak var uButton: UIButton!
+    @IBOutlet weak var iButton: UIButton!
+    @IBOutlet weak var oButton: UIButton!
+    @IBOutlet weak var pButton: UIButton!
+    @IBOutlet weak var aButton: UIButton!
+    @IBOutlet weak var sButton: UIButton!
+    @IBOutlet weak var dButton: UIButton!
+    @IBOutlet weak var fButton: UIButton!
+    @IBOutlet weak var gButton: UIButton!
+    @IBOutlet weak var hButton: UIButton!
+    @IBOutlet weak var jButton: UIButton!
+    @IBOutlet weak var kButton: UIButton!
+    @IBOutlet weak var lButton: UIButton!
+    @IBOutlet weak var zButton: UIButton!
+    @IBOutlet weak var xButton: UIButton!
+    @IBOutlet weak var cButton: UIButton!
+    @IBOutlet weak var vButton: UIButton!
+    @IBOutlet weak var bButton: UIButton!
+    @IBOutlet weak var nButton: UIButton!
+    @IBOutlet weak var mButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//---------------------------------------------------------
+// keyBoard functions
+    var word: String = ""
+    
+    
+    
+    @IBOutlet weak var typedWord: UILabel!
+    
+    @IBAction func qButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "q"
+        typedWord.text = word
+        
         var subWord = ""
-        for character in ((sender.text)?.characters)!{
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+
+    }
+    
+    @IBAction func wButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "w"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
@@ -315,24 +434,21 @@ class ViewController: UIViewController {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
                     
-                        numSubWordsLeft -= 1
-                        player.play() //plays sound when correct
-                        status.text = "Correct"
-                        //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                        enteredWords.insert(subWord)
-                        correctWords += 1
-                        if(correctWords <= 2){
-                            score += 1
-                        }else{
-                            score += seconds 
-                        }
-                        ScoreOfGame.text = "Score: "+String(score)
-                        mutatWord.textColor = UIColor.green
-                        sender.text = ""
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
                 }
                 else {
-                   // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    status.text = "Incorrect"
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     
@@ -340,15 +456,1091 @@ class ViewController: UIViewController {
             }
             else {
                 //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                status.text = "Incorrect"
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
-
+                
             }
         }
-
     }
-  
+    
+   
+    @IBAction func eButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "e"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+
+    @IBAction func rButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "r"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func tButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "t"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func yButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "y"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func uButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "u"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func iButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "i"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func oButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "o"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func pButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "p"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func aButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "a"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func sButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "s"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func dButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "d"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func fButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "f"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func gButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "g"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func hButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "h"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func jButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "j"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func kButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "k"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func lButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "l"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func zButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "z"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func xButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "x"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func cButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "c"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func vButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "v"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func bButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "b"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func nButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "n"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func mButton(_ sender: Any) {
+        word = typedWord.text!
+        word += "m"
+        typedWord.text = word
+        
+        var subWord = ""
+        for character in ((typedWord.text)?.characters)!{
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    print(numSubWordsLeft)
+                    numSubWordsLeft -= 1
+                    print(numSubWordsLeft)
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.characters.count
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                
+            }
+        }
+    }
+    
+    @IBAction func deleteButton(_ sender: Any) {
+        if(typedWord.text != ""){
+            word = String(word.characters.dropLast())
+            typedWord.text = word
+        }
+    }
+    
+    
+    
+    
+//-------------------------------------------------------------------------------------------------
     
     
   
@@ -395,6 +1587,38 @@ class ViewController: UIViewController {
     
     
     func resetGameLayout(resetButton: UIButton){
+        qButton.isHidden = false
+        wButton.isHidden = false
+        eButton.isHidden = false
+        rButton.isHidden = false
+        tButton.isHidden = false
+        yButton.isHidden = false
+        uButton.isHidden = false
+        iButton.isHidden = false
+        oButton.isHidden = false
+        pButton.isHidden = false
+        aButton.isHidden = false
+        sButton.isHidden = false
+        dButton.isHidden = false
+        fButton.isHidden = false
+        gButton.isHidden = false
+        hButton.isHidden = false
+        jButton.isHidden = false
+        kButton.isHidden = false
+        lButton.isHidden = false
+        zButton.isHidden = false
+        xButton.isHidden = false
+        cButton.isHidden = false
+        vButton.isHidden = false
+        bButton.isHidden = false
+        nButton.isHidden = false
+        mButton.isHidden = false
+        deleteButton.isHidden = false
+
+        
+        
+        
+        
         timeNoGame = 0
         resetTimer() //reset timer
         score = 0
@@ -404,8 +1628,6 @@ class ViewController: UIViewController {
         let numWords = dctWord.count
         self.resetButton.removeFromSuperview()
         
-        resultLabel.text = "Result Message:"
-        status.text = "Correct/Incorrect"
         ScoreOfGame.text = "Score: \(0)"
         
         // reset the list of entered words to empty
@@ -423,7 +1645,7 @@ class ViewController: UIViewController {
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = 10//(((currentWord.characters.count)*10) + 100)
+                seconds = (((currentWord.characters.count)*10) + 100)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -440,6 +1662,35 @@ class ViewController: UIViewController {
     }
 
     func resetGameLayout2(resetButton: UIButton){
+        qButton.isHidden = false
+        wButton.isHidden = false
+        eButton.isHidden = false
+        rButton.isHidden = false
+        tButton.isHidden = false
+        yButton.isHidden = false
+        uButton.isHidden = false
+        iButton.isHidden = false
+        oButton.isHidden = false
+        pButton.isHidden = false
+        aButton.isHidden = false
+        sButton.isHidden = false
+        dButton.isHidden = false
+        fButton.isHidden = false
+        gButton.isHidden = false
+        hButton.isHidden = false
+        jButton.isHidden = false
+        kButton.isHidden = false
+        lButton.isHidden = false
+        zButton.isHidden = false
+        xButton.isHidden = false
+        cButton.isHidden = false
+        vButton.isHidden = false
+        bButton.isHidden = false
+        nButton.isHidden = false
+        mButton.isHidden = false
+        deleteButton.isHidden = false
+
+        
         timeNoGame = 0
         resetTimer() //reset timer
         score = 0
@@ -448,8 +1699,6 @@ class ViewController: UIViewController {
         let numWords = dctWord.count
         self.resetButton.removeFromSuperview()
         
-        resultLabel.text = "Result Message:"
-        status.text = "Correct/Incorrect"
         ScoreOfGame.text = "Score: \(0)"
         
         // reset the list of entered words to empty
@@ -467,7 +1716,7 @@ class ViewController: UIViewController {
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = 10//(((currentWord.characters.count)*10) + 100)
+                seconds = (((currentWord.characters.count)*10) + 100)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -497,7 +1746,7 @@ class ViewController: UIViewController {
             currentWord = String()
             let numWords = dctWord.count
             
-            
+        
             // reset the list of entered words to empty
             enteredWords = Set<String>()
             
@@ -512,8 +1761,11 @@ class ViewController: UIViewController {
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = 10//(((currentWord.characters.count)*10) + 100)
+                    seconds = (((currentWord.characters.count)*10) + 100)
                     runTimer()
+                    print(numSubWordsLeft)
+                    print(subWordList)
+
                     
                 }
             }

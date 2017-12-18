@@ -63,9 +63,9 @@ class MainViewController: UIViewController {
     
     
     @IBAction func playGame(_ sender: Any) {
-    
-        performSegue(withIdentifier: "segue", sender: self)
+         performSegue(withIdentifier: "segue", sender: self)
     }
+   
     override func viewDidLoad() {
         timesVisited += 1
             //reference sound file for the game
