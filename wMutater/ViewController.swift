@@ -18,11 +18,29 @@ import AVFoundation
 
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPageViewControllerDelegate{
  
+    
+    var pageViewController: UIPageViewController?
+
+    
+    open override var shouldAutorotate: Bool{
+        get{
+            return false
+        }
+    }
+    
+    private var _orientations = UIInterfaceOrientationMask.portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        get { return self._orientations }
+        set { self._orientations = newValue }
+    }
+
+    
     ///////////////////////
 
     // BEGIN: GLOBAL VARIABLES
+    
     
     
     
@@ -40,35 +58,35 @@ class ViewController: UIViewController {
     
     
     
-    var correctWords = 0
+    @objc var correctWords = 0
 
     
     //activity loading
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    @objc var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     
     
         // The current word that the user will have to generate subwords for
-    var currentWord = String()
+    @objc var currentWord = String()
     
     // All the legal subwords of a wordInDict
-    var subWordList: Set<String> = Set<String>()
+    @objc var subWordList: Set<String> = Set<String>()
     
     // List of words that the user has entered so far
-    var enteredWords: Set<String> = Set<String>()
+    @objc var enteredWords: Set<String> = Set<String>()
     
     // The number of sub words left for the user to enter
-    var numSubWordsLeft = Int(0)
+    @objc var numSubWordsLeft = Int(0)
     
     // Current score
-    var score = Int(0)
+    @objc var score = Int(0)
     
     
     
     //Timer
-    var seconds = Int(0)
-    var timer = Timer()
-    var isTimerRunning = false
+    @objc var seconds = Int(0)
+    @objc var timer = Timer()
+    @objc var isTimerRunning = false
     
     
     // END: GLOBAL VARIABLES
@@ -76,12 +94,12 @@ class ViewController: UIViewController {
     // BEGIN: Functions
     
     // BEGIN: 3 functions relating to timer
-    func runTimer(){
+    @objc func runTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
         print(timer)
     }
     
-    func updateTimer(){
+    @objc func updateTimer(){
         if(TimerOfTheGame.text != String()){
             TimerOfTheGame.text = "Timer: \(seconds)"
         }
@@ -128,7 +146,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func resetTimer(){
+    @objc func resetTimer(){
         timer.invalidate()
  
     }
@@ -165,7 +183,7 @@ class ViewController: UIViewController {
     
     
     //High Score file writing-------------------------------------------------
-    func highScores(){
+    @objc func highScores(){
         if(HighScores.contains(Scores.max()!)){
             
         }else{
@@ -179,7 +197,7 @@ class ViewController: UIViewController {
             
             //write the file
             
-            let highscore = "High Score: \(Scores.max())";
+            let highscore = "High Score: \(String(describing: Scores.max()))";
             
             do{
                 try highscore.write(toFile: path!, atomically: true, encoding: String.Encoding.utf8)
@@ -231,14 +249,14 @@ class ViewController: UIViewController {
  
     // Determine if a word is a valid subWord of the given word
     // Also check if it is in the dictionary
-    func WordCheck(word: String, subWord:String)->Bool {
+    @objc func WordCheck(word: String, subWord:String)->Bool {
         var validWord = true
         if (!dctWord.keys.contains(subWord)) {
             validWord = false
         }
         else {
-            let subWordChars = Array(subWord.characters)
-            var wordChars = Array(word.characters)
+            let subWordChars = Array(subWord)
+            var wordChars = Array(word)
             for letter in subWordChars {
                 if (wordChars.contains(letter)) {
                     let letterIdx = wordChars.index(of:letter)
@@ -273,14 +291,14 @@ class ViewController: UIViewController {
             
             // swap the current letter with the rest of teh letters
             if (i > curr) {
-                swap(&word[curr], &word[i])
+                word.swapAt(curr, i)
             }
             /* create a substring with words[i] removed */
             Permute(word:&word, curr:curr+1, k:k)
             
             // backtrack and set the letters back
             if (i > curr) {
-                swap(&word[i], &word[curr])
+                word.swapAt(i, curr)
             }
         }
     }
@@ -369,7 +387,7 @@ class ViewController: UIViewController {
     
 //---------------------------------------------------------
 // keyBoard functions
-    var word: String = ""
+    @objc var word: String = ""
     
     
     
@@ -381,11 +399,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))! {
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -396,7 +414,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -425,11 +443,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -441,7 +459,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -470,11 +488,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -486,7 +504,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -515,11 +533,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -531,7 +549,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -559,11 +577,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -575,7 +593,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -603,11 +621,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -619,7 +637,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -648,11 +666,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -664,7 +682,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -693,11 +711,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -709,7 +727,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -737,11 +755,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -753,7 +771,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -781,11 +799,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -797,7 +815,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -825,11 +843,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -841,7 +859,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -869,11 +887,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -885,7 +903,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -913,11 +931,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -929,7 +947,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -957,11 +975,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -973,7 +991,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1001,11 +1019,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1017,7 +1035,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1046,11 +1064,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1062,7 +1080,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1090,11 +1108,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1106,7 +1124,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1135,11 +1153,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1151,7 +1169,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1180,11 +1198,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1196,7 +1214,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1225,11 +1243,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1241,7 +1259,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1270,11 +1288,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1286,7 +1304,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1314,11 +1332,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1330,7 +1348,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1359,11 +1377,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1375,7 +1393,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1404,11 +1422,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1420,7 +1438,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1448,11 +1466,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1464,7 +1482,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1492,11 +1510,11 @@ class ViewController: UIViewController {
         typedWord.text = word
         
         var subWord = ""
-        for character in ((typedWord.text)?.characters)!{
+        for character in ((typedWord.text))!{
             subWord += String(character)
         }
         subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.characters.count > 1){
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
                     
@@ -1508,7 +1526,7 @@ class ViewController: UIViewController {
                     //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
                     enteredWords.insert(subWord)
                     correctWords += 1
-                    score += subWord.characters.count
+                    score += subWord.count
                     
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
@@ -1532,7 +1550,7 @@ class ViewController: UIViewController {
     
     @IBAction func deleteButton(_ sender: Any) {
         if(typedWord.text != ""){
-            word = String(word.characters.dropLast())
+            word = String(word.dropLast())
             typedWord.text = word
         }
     }
@@ -1564,11 +1582,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    var resetButton = UIButton()
+    @objc var resetButton = UIButton()
     
-    var timeNoGame = 0
+    @objc var timeNoGame = 0
 
-    func createButton(){
+    @objc func createButton(){
         timeNoGame += 1
         if(timeNoGame == 1){
             Scores.append(score)
@@ -1586,7 +1604,7 @@ class ViewController: UIViewController {
     }
     
     
-    func resetGameLayout(resetButton: UIButton){
+    @objc func resetGameLayout(resetButton: UIButton){
         qButton.isHidden = false
         wButton.isHidden = false
         eButton.isHidden = false
@@ -1637,7 +1655,7 @@ class ViewController: UIViewController {
         while !validWord {
             let wordIdx = arc4random_uniform(_:UInt32(numWords))
             currentWord = dctNum[Int(wordIdx)]!
-            if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
+            if  (currentWord.count < 10 && currentWord.count > 3) {
                 
                 // DEBUG - REMOVE LATER
                 //print("Your lucky word is:", currentWord)
@@ -1645,7 +1663,7 @@ class ViewController: UIViewController {
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = (((currentWord.characters.count)*10) + 100)
+                seconds = (((currentWord.count)*10) + 100)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -1655,13 +1673,13 @@ class ViewController: UIViewController {
         // Now generate the list of subwords for the word that was just given to the user
         // initialize list of actual subwords and the number of subwords left to be guessed
         subWordList = Set<String>()
-        var wordArray:Array<Character> = Array(currentWord.characters)
+        var wordArray:Array<Character> = Array(currentWord)
         PermuteAll(word: &wordArray)
 
         
     }
 
-    func resetGameLayout2(resetButton: UIButton){
+    @objc func resetGameLayout2(resetButton: UIButton){
         qButton.isHidden = false
         wButton.isHidden = false
         eButton.isHidden = false
@@ -1708,7 +1726,7 @@ class ViewController: UIViewController {
         while !validWord {
             let wordIdx = arc4random_uniform(_:UInt32(numWords))
             currentWord = dctNum[Int(wordIdx)]!
-            if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
+            if  (currentWord.count < 10 && currentWord.count > 3) {
                 
                 // DEBUG - REMOVE LATER
                 //print("Your lucky word is:", currentWord)
@@ -1716,7 +1734,7 @@ class ViewController: UIViewController {
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = (((currentWord.characters.count)*10) + 100)
+                seconds = (((currentWord.count)*10) + 100)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -1726,7 +1744,7 @@ class ViewController: UIViewController {
         // Now generate the list of subwords for the word that was just given to the user
         // initialize list of actual subwords and the number of subwords left to be guessed
         subWordList = Set<String>()
-        var wordArray:Array<Character> = Array(currentWord.characters)
+        var wordArray:Array<Character> = Array(currentWord)
         PermuteAll(word: &wordArray)
         
         
@@ -1754,14 +1772,14 @@ class ViewController: UIViewController {
             while !validWord {
                 let wordIdx = arc4random_uniform(_:UInt32(numWords))
                 currentWord = dctNum[Int(wordIdx)]!
-                if  (currentWord.characters.count < 10 && currentWord.characters.count > 3) {
+                if  (currentWord.count < 10 && currentWord.count > 3) {
                     
                     // DEBUG - REMOVE LATER
                     //print("Your lucky word is:", currentWord)
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = (((currentWord.characters.count)*10) + 100)
+                    seconds = (((currentWord.count)*10) + 100)
                     runTimer()
                     print(numSubWordsLeft)
                     print(subWordList)
@@ -1773,7 +1791,7 @@ class ViewController: UIViewController {
             // Now generate the list of subwords for the word that was just given to the user
             // initialize list of actual subwords and the number of subwords left to be guessed
             subWordList = Set<String>()
-            var wordArray:Array<Character> = Array(currentWord.characters)
+            var wordArray:Array<Character> = Array(currentWord)
             PermuteAll(word: &wordArray)
             
            resetButton.addTarget(self, action: #selector(resetGameLayout(resetButton:)), for: .touchUpInside)
@@ -1787,7 +1805,8 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+ 
 
 }
 

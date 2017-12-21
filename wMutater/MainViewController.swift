@@ -40,7 +40,7 @@ func InitDictionary(fileName: String) -> Int
             for word in myWords {
                 // Now populate dictionary from myWords 
                 
-                if(word.characters.count > 1){
+                if(word.count > 1){
                     lowerWord = word.lowercased()
                     dctWord[lowerWord] = iter
                     dctNum[iter] = lowerWord
@@ -57,9 +57,24 @@ func InitDictionary(fileName: String) -> Int
     return 0;
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController , UIPageViewControllerDelegate{
     
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    var pageViewController: UIPageViewController?
+    
+    
+    open override var shouldAutorotate: Bool{
+        get{
+            return false
+        }
+    }
+    
+    private var _orientations = UIInterfaceOrientationMask.portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        get { return self._orientations }
+        set { self._orientations = newValue }
+    }
+    @objc var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     
     @IBAction func playGame(_ sender: Any) {
