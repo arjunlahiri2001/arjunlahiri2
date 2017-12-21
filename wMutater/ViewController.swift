@@ -282,9 +282,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             if (dctWord[currPerm] != nil) {
                 //if len currPerm > 1
                     subWordList.insert(currPerm)
+                    print(currPerm)
             }
             
-            return
+            
+            return 
         }
         
         for i in curr...(word.count - 1){
@@ -370,6 +372,35 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1558,6 +1589,57 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //-------------------------------------------------------------------------------------------------
     
     
@@ -1758,6 +1840,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
             print(HighScores)
+            print(subWordList)
              UIApplication.shared.endIgnoringInteractionEvents()
             //Generate the random word and start the timer
             var validWord = false
