@@ -57,7 +57,7 @@
 		DC3F0C631FE720F600AA3417 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		DC3F0C671FE763A700AA3417 /* typedWord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typedWord.png; sourceTree = "<group>"; };
 		DC3F0C691FE7647B00AA3417 /* textBoxtypedWord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textBoxtypedWord.png; sourceTree = "<group>"; };
-		DC6E26E61F43D870006787C3 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = SOURCE_ROOT; };
+		DC6E26E61F43D870006787C3 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = words.txt; path = wMutater/words.txt; sourceTree = SOURCE_ROOT; };
 		DC7CD37F1FE5F8D200672E19 /* qButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qButton.png; sourceTree = "<group>"; };
 		DC7CD3811FE622E400672E19 /* xButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xButton.png; sourceTree = "<group>"; };
 		DC7CD3821FE622E400672E19 /* yButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yButton.png; sourceTree = "<group>"; };
@@ -105,6 +105,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC3377B11FEC5AB70000C997 /* pictures */ = {
+			isa = PBXGroup;
+			children = (
+				DC3F0C691FE7647B00AA3417 /* textBoxtypedWord.png */,
+				DC3A096B1FA925850089760E /* playGame.png */,
+				DC3F0C671FE763A700AA3417 /* typedWord.png */,
+				DC3F0C631FE720F600AA3417 /* background.png */,
+			);
+			path = pictures;
+			sourceTree = "<group>";
+		};
+		DC3377B21FEC5B040000C997 /* textFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DC32FC511F58B23400DF3C50 /* highScores.txt */,
+				DC6E26E61F43D870006787C3 /* words.txt */,
+			);
+			name = textFiles;
+			sourceTree = "<group>";
+		};
 		DC3F0C6B1FE7649100AA3417 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,13 +180,9 @@
 			children = (
 				DC92DE751F42A42E0074B41C /* AppDelegate.swift */,
 				DC92DE771F42A42E0074B41C /* ViewController.swift */,
-				DC6E26E61F43D870006787C3 /* words.txt */,
-				DC32FC511F58B23400DF3C50 /* highScores.txt */,
-				DC3A096B1FA925850089760E /* playGame.png */,
-				DC3F0C671FE763A700AA3417 /* typedWord.png */,
-				DC3F0C691FE7647B00AA3417 /* textBoxtypedWord.png */,
 				DC3EE8171FD4D95C00B9A339 /* correct.mp3 */,
-				DC3F0C631FE720F600AA3417 /* background.png */,
+				DC3377B21FEC5B040000C997 /* textFiles */,
+				DC3377B11FEC5AB70000C997 /* pictures */,
 				DC3F0C6B1FE7649100AA3417 /* buttons */,
 				DC92DE791F42A42E0074B41C /* Main.storyboard */,
 				DC26536D1F460EE10025E1B5 /* MainViewController.swift */,
