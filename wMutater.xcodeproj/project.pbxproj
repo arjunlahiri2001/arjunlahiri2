@@ -41,6 +41,7 @@
 		DC7CD3AF1FE622E400672E19 /* jButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7CD3971FE622E400672E19 /* jButton.png */; };
 		DC7CD3B01FE622E400672E19 /* aButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7CD3981FE622E400672E19 /* aButton.png */; };
 		DC7CD3B21FE6238700672E19 /* eButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DC7CD3B11FE6238700672E19 /* eButton.png */; };
+		DC85C3DF1FF7149300A027B5 /* menuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = DC85C3DE1FF7149200A027B5 /* menuBackground.png */; };
 		DC92DE761F42A42E0074B41C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92DE751F42A42E0074B41C /* AppDelegate.swift */; };
 		DC92DE781F42A42E0074B41C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC92DE771F42A42E0074B41C /* ViewController.swift */; };
 		DC92DE7B1F42A42E0074B41C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC92DE791F42A42E0074B41C /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 		DC7CD3971FE622E400672E19 /* jButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jButton.png; sourceTree = "<group>"; };
 		DC7CD3981FE622E400672E19 /* aButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aButton.png; sourceTree = "<group>"; };
 		DC7CD3B11FE6238700672E19 /* eButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eButton.png; sourceTree = "<group>"; };
+		DC85C3DE1FF7149200A027B5 /* menuBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBackground.png; sourceTree = "<group>"; };
 		DC92DE721F42A42E0074B41C /* wMutater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wMutater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC92DE751F42A42E0074B41C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC92DE771F42A42E0074B41C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				DC3A096B1FA925850089760E /* playGame.png */,
 				DC3F0C671FE763A700AA3417 /* typedWord.png */,
 				DC3F0C631FE720F600AA3417 /* background.png */,
+				DC85C3DE1FF7149200A027B5 /* menuBackground.png */,
 			);
 			path = pictures;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				DC7CD3A81FE622E400672E19 /* cButton.png in Resources */,
 				DC7CD3AF1FE622E400672E19 /* jButton.png in Resources */,
 				DC7CD39E1FE622E400672E19 /* tButton.png in Resources */,
+				DC85C3DF1FF7149300A027B5 /* menuBackground.png in Resources */,
 				DC7CD39B1FE622E400672E19 /* zButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
