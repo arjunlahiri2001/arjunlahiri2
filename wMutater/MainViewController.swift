@@ -80,13 +80,13 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     @IBAction func playGame(_ sender: Any) {
          performSegue(withIdentifier: "segue", sender: self)
     }
-   
+    
     override func viewDidLoad() {
         timesVisited += 1
             //reference sound file for the game
         if(timesVisited == 1){
             do{
-                let audioPath = Bundle.main.path(forResource: "correct", ofType: "mp3")
+                let audioPath = Bundle.main.path(forResource: "correctSound", ofType: "wav")
                 try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
                 
             }

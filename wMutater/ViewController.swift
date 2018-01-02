@@ -1791,7 +1791,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
 
         newHighScore.text = ""
         
-        mutatWord.textColor = UIColor.white
         var validWord = false
         currentWord = String()
         let numWords = dctWord.count
@@ -1866,7 +1865,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         countPermut = 0
         typedWord.text = ""
         messageOfWord.text = ""
-        mutatWord.textColor = UIColor.white
 
         
         var validWord = false

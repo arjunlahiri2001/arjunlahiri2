@@ -10,7 +10,9 @@
 		DC26536E1F460EE10025E1B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26536D1F460EE10025E1B5 /* MainViewController.swift */; };
 		DC32FC521F58B23400DF3C50 /* highScores.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC32FC511F58B23400DF3C50 /* highScores.txt */; };
 		DC3A096C1FA925850089760E /* playGame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A096B1FA925850089760E /* playGame.png */; };
-		DC3EE8181FD4D95C00B9A339 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DC3EE8171FD4D95C00B9A339 /* correct.mp3 */; };
+		DC4F6DEF1FFB1AC400438B41 /* backgroundMain.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */; };
+		DC4F6DF31FFB1FA700438B41 /* margin.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DF21FFB1FA600438B41 /* margin.png */; };
+		DC4F6DF51FFB228300438B41 /* correctSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DF41FFB228200438B41 /* correctSound.wav */; };
 		DC513BF91FF81F0F0080031F /* textBoxTypedWord.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */; };
 		DC513BFB1FF821510080031F /* launchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513BFA1FF821500080031F /* launchScreen.png */; };
 		DC513C031FF825A00080031F /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513C021FF825A00080031F /* frame.png */; };
@@ -55,7 +57,9 @@
 		DC26536D1F460EE10025E1B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DC32FC511F58B23400DF3C50 /* highScores.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = highScores.txt; sourceTree = "<group>"; };
 		DC3A096B1FA925850089760E /* playGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playGame.png; sourceTree = "<group>"; };
-		DC3EE8171FD4D95C00B9A339 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
+		DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundMain.png; sourceTree = "<group>"; };
+		DC4F6DF21FFB1FA600438B41 /* margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = margin.png; path = ../../../margin.png; sourceTree = "<group>"; };
+		DC4F6DF41FFB228200438B41 /* correctSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correctSound.wav; sourceTree = "<group>"; };
 		DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textBoxTypedWord.png; sourceTree = "<group>"; };
 		DC513BFA1FF821500080031F /* launchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchScreen.png; sourceTree = "<group>"; };
 		DC513C021FF825A00080031F /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frame.png; path = ../../../frame.png; sourceTree = "<group>"; };
@@ -116,7 +120,9 @@
 				DC3A096B1FA925850089760E /* playGame.png */,
 				DC513C5F1FF83A360080031F /* background.png */,
 				DC513C611FF83AA40080031F /* typedWord.png */,
+				DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */,
 				DC513C021FF825A00080031F /* frame.png */,
+				DC4F6DF21FFB1FA600438B41 /* margin.png */,
 				DC513BFA1FF821500080031F /* launchScreen.png */,
 			);
 			path = pictures;
@@ -186,7 +192,7 @@
 			children = (
 				DC92DE751F42A42E0074B41C /* AppDelegate.swift */,
 				DC92DE771F42A42E0074B41C /* ViewController.swift */,
-				DC3EE8171FD4D95C00B9A339 /* correct.mp3 */,
+				DC4F6DF41FFB228200438B41 /* correctSound.wav */,
 				DC3377B21FEC5B040000C997 /* textFiles */,
 				DC3377B11FEC5AB70000C997 /* pictures */,
 				DC3F0C6B1FE7649100AA3417 /* buttons */,
@@ -231,6 +237,7 @@
 				TargetAttributes = {
 					DC92DE711F42A42E0074B41C = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Y3FF8K78NY;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
@@ -264,12 +271,14 @@
 				DC3A096C1FA925850089760E /* playGame.png in Resources */,
 				DC7CD3AC1FE622E400672E19 /* lButton.png in Resources */,
 				DC7CD3A51FE622E400672E19 /* gButton.png in Resources */,
+				DC4F6DF51FFB228300438B41 /* correctSound.wav in Resources */,
 				DC7CD3AB1FE622E400672E19 /* bButton.png in Resources */,
 				DC92DE801F42A42E0074B41C /* LaunchScreen.storyboard in Resources */,
 				DC7CD3A11FE622E400672E19 /* wButton.png in Resources */,
 				DC513BFB1FF821510080031F /* launchScreen.png in Resources */,
 				DC7CD3AE1FE622E400672E19 /* kButton.png in Resources */,
 				DC7CD3A71FE622E400672E19 /* iButton.png in Resources */,
+				DC4F6DEF1FFB1AC400438B41 /* backgroundMain.png in Resources */,
 				DC7CD3A41FE622E400672E19 /* nButton.png in Resources */,
 				DC513C621FF83AA40080031F /* typedWord.png in Resources */,
 				DC7CD3AA1FE622E400672E19 /* mButton.png in Resources */,
@@ -282,7 +291,6 @@
 				DC6E26E71F43D870006787C3 /* words.txt in Resources */,
 				DC513BF91FF81F0F0080031F /* textBoxTypedWord.png in Resources */,
 				DC92DE7B1F42A42E0074B41C /* Main.storyboard in Resources */,
-				DC3EE8181FD4D95C00B9A339 /* correct.mp3 in Resources */,
 				DC7CD39D1FE622E400672E19 /* sButton.png in Resources */,
 				DC7CD3A91FE622E400672E19 /* fButton.png in Resources */,
 				DC7CD39A1FE622E400672E19 /* yButton.png in Resources */,
@@ -294,6 +302,7 @@
 				DC32FC521F58B23400DF3C50 /* highScores.txt in Resources */,
 				DC7CD39F1FE622E400672E19 /* uButton.png in Resources */,
 				DC7CD3B01FE622E400672E19 /* aButton.png in Resources */,
+				DC4F6DF31FFB1FA700438B41 /* margin.png in Resources */,
 				DC7CD3A81FE622E400672E19 /* cButton.png in Resources */,
 				DC7CD3AF1FE622E400672E19 /* jButton.png in Resources */,
 				DC7CD39E1FE622E400672E19 /* tButton.png in Resources */,
@@ -443,10 +452,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y3FF8K78NY;
 				INFOPLIST_FILE = wMutater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AL.wMutater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -455,10 +468,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y3FF8K78NY;
 				INFOPLIST_FILE = wMutater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AL.wMutater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
