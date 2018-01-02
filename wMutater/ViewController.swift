@@ -433,10 +433,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     @IBOutlet weak var typedWord: UILabel!
     
     @IBAction func qButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "q"
-        typedWord.text = word
-        
+        if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "q"
+            typedWord.text = word
+        }
         var subWord = ""
         for character in ((typedWord.text))! {
             subWord += String(character)
@@ -463,6 +464,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -471,6 +473,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
+
 
             }
         }
@@ -478,9 +482,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     }
     
     @IBAction func wButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "w"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "w"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -510,6 +516,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
+
 
                 }
             }
@@ -518,6 +526,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -525,9 +534,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
    
     @IBAction func eButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "e"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "e"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -557,6 +568,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                     
                 }
@@ -566,6 +578,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -573,9 +586,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
 
     @IBAction func rButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "r"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "r"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -606,7 +621,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
 
-                    
+                    player2.play()
+
                 }
             }
             else {
@@ -614,15 +630,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func tButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "t"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "t"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -653,7 +672,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
 
-                    
+                    player2.play()
+
                 }
             }
             else {
@@ -661,15 +681,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func yButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "y"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "y"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -699,6 +722,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -707,6 +731,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -714,9 +739,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func uButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "u"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "u"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -746,6 +773,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -754,6 +782,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -761,9 +790,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func iButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "i"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "i"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -793,6 +824,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -801,15 +833,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func oButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "o"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "o"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -839,6 +874,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -847,15 +883,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func pButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "p"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "p"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -885,6 +924,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -893,15 +933,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func aButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "a"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "a"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -931,6 +974,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -939,15 +983,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func sButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "s"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "s"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -977,6 +1024,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -985,15 +1033,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func dButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "d"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "d"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1023,6 +1074,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1031,15 +1083,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func fButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "f"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "f"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1069,6 +1124,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1077,15 +1133,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func gButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "g"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "g"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1115,6 +1174,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1123,6 +1183,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1130,9 +1191,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func hButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "h"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "h"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1162,6 +1225,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1170,15 +1234,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func jButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "j"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "j"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1208,6 +1275,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1216,6 +1284,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1223,9 +1292,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func kButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "k"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "k"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1255,6 +1326,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1263,6 +1335,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1270,9 +1343,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func lButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "l"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "l"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1302,6 +1377,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1310,6 +1386,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1317,9 +1394,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func zButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "z"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "z"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1349,6 +1428,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1357,6 +1437,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1364,9 +1445,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func xButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "x"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "x"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1396,6 +1479,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1404,15 +1488,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func cButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "c"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "c"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1442,6 +1529,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1450,6 +1538,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1457,9 +1546,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func vButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "v"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "v"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1489,6 +1580,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1497,6 +1589,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1504,9 +1597,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     @IBAction func bButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "b"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "b"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1536,6 +1631,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1544,15 +1640,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func nButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "n"
-        typedWord.text = word
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "n"
+            typedWord.text = word
+        }
         
         var subWord = ""
         for character in ((typedWord.text))!{
@@ -1582,6 +1681,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1590,16 +1690,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
     }
     
     @IBAction func mButton(_ sender: Any) {
-        word = typedWord.text!
-        word += "m"
-        typedWord.text = word
-        
+         if((typedWord.text?.count)! < 20){
+            word = typedWord.text!
+            word += "m"
+            typedWord.text = word
+        }
         var subWord = ""
         for character in ((typedWord.text))!{
             subWord += String(character)
@@ -1628,6 +1730,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    player2.play()
 
                 }
             }
@@ -1636,6 +1739,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                player2.play()
 
             }
         }
@@ -1910,6 +2014,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         
+            player1.play()
             //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
             print(HighScores)

@@ -21,7 +21,8 @@ var HighScores = [Int]()
 
 
 var player:AVAudioPlayer = AVAudioPlayer()
-
+var player1:AVAudioPlayer = AVAudioPlayer()
+var player2:AVAudioPlayer = AVAudioPlayer()
 // high scores
 
 var timesVisited = 0
@@ -78,7 +79,10 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     
     
     @IBAction func playGame(_ sender: Any) {
+       
+        
          performSegue(withIdentifier: "segue", sender: self)
+        
     }
     
     override func viewDidLoad() {
@@ -88,6 +92,14 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
             do{
                 let audioPath = Bundle.main.path(forResource: "correctSound", ofType: "wav")
                 try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+                
+                let audioPath1 = Bundle.main.path(forResource: "backgroundSong", ofType: "mp3")
+                try player1 = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath1!) as URL)
+                
+                let audioPath2 = Bundle.main.path(forResource: "error", ofType: "wav")
+                try player2 = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath2!) as URL)
+                player.volume = 5.0
+                player2.volume = 5.0
                 
             }
             catch{
@@ -108,6 +120,10 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        player1.play()
     }
 
     override func didReceiveMemoryWarning() {

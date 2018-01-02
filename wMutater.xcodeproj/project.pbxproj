@@ -13,6 +13,8 @@
 		DC4F6DEF1FFB1AC400438B41 /* backgroundMain.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */; };
 		DC4F6DF31FFB1FA700438B41 /* margin.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DF21FFB1FA600438B41 /* margin.png */; };
 		DC4F6DF51FFB228300438B41 /* correctSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DF41FFB228200438B41 /* correctSound.wav */; };
+		DC4F6DF71FFB258800438B41 /* backgroundSong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DF61FFB258800438B41 /* backgroundSong.mp3 */; };
+		DC4F6DFB1FFC42D300438B41 /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = DC4F6DFA1FFC42D300438B41 /* error.wav */; };
 		DC513BF91FF81F0F0080031F /* textBoxTypedWord.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */; };
 		DC513BFB1FF821510080031F /* launchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513BFA1FF821500080031F /* launchScreen.png */; };
 		DC513C031FF825A00080031F /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC513C021FF825A00080031F /* frame.png */; };
@@ -60,6 +62,8 @@
 		DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundMain.png; sourceTree = "<group>"; };
 		DC4F6DF21FFB1FA600438B41 /* margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = margin.png; path = ../../../margin.png; sourceTree = "<group>"; };
 		DC4F6DF41FFB228200438B41 /* correctSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correctSound.wav; sourceTree = "<group>"; };
+		DC4F6DF61FFB258800438B41 /* backgroundSong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundSong.mp3; sourceTree = "<group>"; };
+		DC4F6DFA1FFC42D300438B41 /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error.wav; sourceTree = "<group>"; };
 		DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textBoxTypedWord.png; sourceTree = "<group>"; };
 		DC513BFA1FF821500080031F /* launchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchScreen.png; sourceTree = "<group>"; };
 		DC513C021FF825A00080031F /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frame.png; path = ../../../frame.png; sourceTree = "<group>"; };
@@ -171,6 +175,25 @@
 			name = buttons;
 			sourceTree = "<group>";
 		};
+		DC4F6DF81FFB258E00438B41 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				DC4F6DF41FFB228200438B41 /* correctSound.wav */,
+				DC4F6DFA1FFC42D300438B41 /* error.wav */,
+				DC4F6DF61FFB258800438B41 /* backgroundSong.mp3 */,
+			);
+			name = sounds;
+			sourceTree = "<group>";
+		};
+		DC4F6DF91FFC3E3000438B41 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DC92DE771F42A42E0074B41C /* ViewController.swift */,
+				DC26536D1F460EE10025E1B5 /* MainViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		DC92DE691F42A42E0074B41C = {
 			isa = PBXGroup;
 			children = (
@@ -191,13 +214,12 @@
 			isa = PBXGroup;
 			children = (
 				DC92DE751F42A42E0074B41C /* AppDelegate.swift */,
-				DC92DE771F42A42E0074B41C /* ViewController.swift */,
-				DC4F6DF41FFB228200438B41 /* correctSound.wav */,
+				DC4F6DF91FFC3E3000438B41 /* ViewControllers */,
+				DC4F6DF81FFB258E00438B41 /* sounds */,
 				DC3377B21FEC5B040000C997 /* textFiles */,
 				DC3377B11FEC5AB70000C997 /* pictures */,
 				DC3F0C6B1FE7649100AA3417 /* buttons */,
 				DC92DE791F42A42E0074B41C /* Main.storyboard */,
-				DC26536D1F460EE10025E1B5 /* MainViewController.swift */,
 				DC92DE7C1F42A42E0074B41C /* Assets.xcassets */,
 				DC92DE7E1F42A42E0074B41C /* LaunchScreen.storyboard */,
 				DC92DE811F42A42E0074B41C /* Info.plist */,
@@ -269,6 +291,7 @@
 				DC7CD3A01FE622E400672E19 /* vButton.png in Resources */,
 				DC513C031FF825A00080031F /* frame.png in Resources */,
 				DC3A096C1FA925850089760E /* playGame.png in Resources */,
+				DC4F6DF71FFB258800438B41 /* backgroundSong.mp3 in Resources */,
 				DC7CD3AC1FE622E400672E19 /* lButton.png in Resources */,
 				DC7CD3A51FE622E400672E19 /* gButton.png in Resources */,
 				DC4F6DF51FFB228300438B41 /* correctSound.wav in Resources */,
@@ -288,6 +311,7 @@
 				DC7CD3AD1FE622E400672E19 /* dButton.png in Resources */,
 				DC7CD3801FE5F8D200672E19 /* qButton.png in Resources */,
 				DC7CD39C1FE622E400672E19 /* rButton.png in Resources */,
+				DC4F6DFB1FFC42D300438B41 /* error.wav in Resources */,
 				DC6E26E71F43D870006787C3 /* words.txt in Resources */,
 				DC513BF91FF81F0F0080031F /* textBoxTypedWord.png in Resources */,
 				DC92DE7B1F42A42E0074B41C /* Main.storyboard in Resources */,
