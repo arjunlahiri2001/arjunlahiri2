@@ -138,6 +138,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 nButton.isHidden = true
                 mButton.isHidden = true
                 deleteButton.isHidden = true
+                enterWord.isHidden = true
 
                 createButton()
                 
@@ -181,14 +182,15 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     
-    
+    var x = 0
     
     
     //High Score file writing-------------------------------------------------
     @objc func highScores(){
-        if(HighScores.contains(Scores.max()!)){
-            
-        }else{
+        let contains = HighScores.contains(Scores.max()!)
+        if(contains){
+             
+        }else {
             HighScores.append(Scores.max()!)
             print(HighScores)
             if(HighScores[0] != 0){
@@ -374,12 +376,17 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     @IBOutlet weak var nButton: UIButton!
     @IBOutlet weak var mButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var enterWord: UIButton!
+    
+    
+    
+    
+    
 
     
     
     
     
-
     
     
     
@@ -409,10 +416,52 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     
-    
-    
-    
-    
+    @IBAction func enterWord(_ sender: Any) {
+        
+        var subWord = ""
+        for character in ((typedWord.text))! {
+            subWord += String(character)
+        }
+        subWord = subWord.lowercased()
+        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
+            if (!enteredWords.contains(subWord)) {
+                if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    
+                    
+                    player.play() //plays sound when correct
+                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                    enteredWords.insert(subWord)
+                    correctWords += 1
+                    score += subWord.count
+                    seconds += subWord.count + 1
+                    
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.green
+                    typedWord.text = ""
+                    messageOfWord.text = "Correct!!"
+                    
+                }
+                else {
+                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
+                    ScoreOfGame.text = "Score: "+String(score)
+                    mutatWord.textColor = UIColor.red
+                    messageOfWord.text = "Wrong!!"
+                    player2.play()
+                    
+                }
+            }
+            else {
+                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
+                ScoreOfGame.text = "Score: "+String(score)
+                mutatWord.textColor = UIColor.red
+                messageOfWord.text = "Word already used!!"
+                player2.play()
+                
+                
+            }
+        }
+        
+    }
     
     
     
@@ -438,46 +487,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             word += "q"
             typedWord.text = word
         }
-        var subWord = ""
-        for character in ((typedWord.text))! {
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-
-            }
-        }
+       
 
     }
     
@@ -488,48 +498,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                   
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
    
@@ -540,48 +509,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                    
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
 
@@ -592,48 +520,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+    
     }
     
     @IBAction func tButton(_ sender: Any) {
@@ -642,49 +529,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             word += "t"
             typedWord.text = word
         }
-        
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+     
     }
     
     @IBAction func yButton(_ sender: Any) {
@@ -694,47 +539,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     
@@ -745,47 +550,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
     
@@ -796,47 +561,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
     @IBAction func oButton(_ sender: Any) {
@@ -846,47 +571,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func pButton(_ sender: Any) {
@@ -896,47 +581,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-             
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
     @IBAction func aButton(_ sender: Any) {
@@ -946,47 +591,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-               
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+      
     }
     
     @IBAction func sButton(_ sender: Any) {
@@ -996,47 +601,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+     
     }
     
     @IBAction func dButton(_ sender: Any) {
@@ -1045,48 +610,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             word += "d"
             typedWord.text = word
         }
-        
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+     
     }
     
     @IBAction func fButton(_ sender: Any) {
@@ -1096,47 +620,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func gButton(_ sender: Any) {
@@ -1146,47 +630,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     
@@ -1197,47 +641,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func jButton(_ sender: Any) {
@@ -1247,47 +651,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-          
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+        
     }
     
     
@@ -1298,47 +662,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     
@@ -1349,47 +673,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                 
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     
@@ -1400,47 +684,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-               
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     
@@ -1451,47 +695,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func cButton(_ sender: Any) {
@@ -1501,47 +705,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                   
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+        
     }
     
     
@@ -1552,47 +716,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                  
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+        
     }
     
     
@@ -1603,47 +727,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                    
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func nButton(_ sender: Any) {
@@ -1653,47 +737,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             typedWord.text = word
         }
         
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                    
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+       
     }
     
     @IBAction func mButton(_ sender: Any) {
@@ -1702,47 +746,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             word += "m"
             typedWord.text = word
         }
-        var subWord = ""
-        for character in ((typedWord.text))!{
-            subWord += String(character)
-        }
-        subWord = subWord.lowercased()
-        if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
-            if (!enteredWords.contains(subWord)) {
-                if (WordCheck(word:currentWord, subWord: subWord) == true) {
-                    
-                    
-                    
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
-
-                }
-                else {
-                    // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
-                    player2.play()
-
-                }
-            }
-            else {
-                //print("Sorry, already used. You still have", numSubWordsLeft, "subwords lefT to go. Score:",score)
-                ScoreOfGame.text = "Score: "+String(score)
-                mutatWord.textColor = UIColor.red
-                messageOfWord.text = "Word already used!!"
-                player2.play()
-
-            }
-        }
+        
     }
     
     @IBAction func deleteButton(_ sender: Any) {
@@ -1834,7 +838,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     @objc var timeNoGame = 0
 
-    @objc func createButton(){
+    @objc func createButton(){                                                                                         
         timeNoGame += 1
         if(timeNoGame == 1){
             Scores.append(score)
@@ -1880,11 +884,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         nButton.isHidden = false
         mButton.isHidden = false
         deleteButton.isHidden = false
+        enterWord.isHidden = false
 
         
-        
-        
-        
+       
+    
         timeNoGame = 0
         resetTimer() //reset timer
         score = 0
@@ -1917,7 +921,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = (((countPermut)*10) + 100)
+                seconds = (((countPermut)*10) + 120)
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -1933,88 +937,12 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         
     }
 
-    @objc func resetGameLayout2(resetButton: UIButton){
-        qButton.isHidden = false
-        wButton.isHidden = false
-        eButton.isHidden = false
-        rButton.isHidden = false
-        tButton.isHidden = false
-        yButton.isHidden = false
-        uButton.isHidden = false
-        iButton.isHidden = false
-        oButton.isHidden = false
-        pButton.isHidden = false
-        aButton.isHidden = false
-        sButton.isHidden = false
-        dButton.isHidden = false
-        fButton.isHidden = false
-        gButton.isHidden = false
-        hButton.isHidden = false
-        jButton.isHidden = false
-        kButton.isHidden = false
-        lButton.isHidden = false
-        zButton.isHidden = false
-        xButton.isHidden = false
-        cButton.isHidden = false
-        vButton.isHidden = false
-        bButton.isHidden = false
-        nButton.isHidden = false
-        mButton.isHidden = false
-        deleteButton.isHidden = false
-
-        
-        timeNoGame = 0
-        resetTimer() //reset timer
-        score = 0
-        countPermut = 0
-        typedWord.text = ""
-        messageOfWord.text = ""
-
-        
-        var validWord = false
-        currentWord = String()
-        let numWords = dctWord.count
-        self.resetButton.removeFromSuperview()
-        
-        ScoreOfGame.text = "Score: \(0)"
-        
-        // reset the list of entered words to empty
-        enteredWords = Set<String>()
-        
-        // Generate a new word between 10 and 3 characters
-        while !validWord {
-            let wordIdx = arc4random_uniform(_:UInt32(numWords))
-            currentWord = dctNum[Int(wordIdx)]!
-            if  (currentWord.count < 10 && currentWord.count > 3) {
-                
-                // DEBUG - REMOVE LATER
-                //print("Your lucky word is:", currentWord)
-                
-                mutatWord.text = currentWord
-                mutatWord.textColor = UIColor.black
-                validWord = true
-                seconds = (((countPermut)*10) + 100)
-                TimerOfTheGame.text = "Timer: \(seconds)"
-                runTimer()
-                
-            }
-        }
-        
-        // Now generate the list of subwords for the word that was just given to the user
-        // initialize list of actual subwords and the number of subwords left to be guessed
-        subWordList = Set<String>()
-        var wordArray:Array<Character> = Array(currentWord)
-        PermuteAll(word: &wordArray)
-        
-        
-    }
 
     
     
     
     override func viewDidAppear(_ animated: Bool) {
         
-            player1.play()
             //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
             print(HighScores)
@@ -2039,7 +967,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = (((countPermut)*10) + 100)
+                    seconds = (((countPermut)*10) + 120)
                     runTimer()
                     print(numSubWordsLeft)
                     print(subWordList)

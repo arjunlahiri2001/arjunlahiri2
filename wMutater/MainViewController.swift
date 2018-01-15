@@ -17,6 +17,7 @@ var dctNum = [Int:String]();
 
 var Scores = [Int]()
 var HighScores = [Int]()
+var savedScores: [Int] = []
  
 
 
@@ -98,8 +99,6 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
                 
                 let audioPath2 = Bundle.main.path(forResource: "error", ofType: "wav")
                 try player2 = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath2!) as URL)
-                player.volume = 5.0
-                player2.volume = 5.0
                 
             }
             catch{
@@ -124,6 +123,7 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         player1.play()
+
     }
 
     override func didReceiveMemoryWarning() {
