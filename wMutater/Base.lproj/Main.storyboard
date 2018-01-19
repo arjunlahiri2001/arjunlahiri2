@@ -214,20 +214,20 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="margin.png" translatesAutoresizingMaskIntoConstraints="NO" id="feu-ZR-bra">
-                                <rect key="frame" x="16" y="140" width="17" height="94"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="frame1.png" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-Iv-Rdx">
+                                <rect key="frame" x="16" y="207" width="343" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="frame.png" translatesAutoresizingMaskIntoConstraints="NO" id="RPh-LX-GO3">
+                                <rect key="frame" x="16" y="140" width="343" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="margin.png" translatesAutoresizingMaskIntoConstraints="NO" id="1uJ-KH-2EZ">
                                 <rect key="frame" x="342" y="140" width="17" height="94"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="frame.png" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-Iv-Rdx">
-                                <rect key="frame" x="16" y="207" width="343" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="frame.png" translatesAutoresizingMaskIntoConstraints="NO" id="RPh-LX-GO3">
-                                <rect key="frame" x="16" y="140" width="343" height="26"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="margin.png" translatesAutoresizingMaskIntoConstraints="NO" id="feu-ZR-bra">
+                                <rect key="frame" x="16" y="140" width="17" height="94"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="typedWord.png" translatesAutoresizingMaskIntoConstraints="NO" id="YeP-w5-UTY">
@@ -464,7 +464,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3211.594202898551" y="-3288.5869565217395"/>
+            <point key="canvasLocation" x="-3212" y="-3289.2053973013494"/>
         </scene>
     </scenes>
     <resources>
@@ -478,7 +478,8 @@
         <image name="eButton.png" width="77" height="76"/>
         <image name="enter.png" width="90" height="37"/>
         <image name="fButton.png" width="77" height="76"/>
-        <image name="frame.png" width="568" height="46"/>
+        <image name="frame.png" width="552" height="20"/>
+        <image name="frame1.png" width="552" height="20"/>
         <image name="gButton.png" width="77" height="76"/>
         <image name="hButton.png" width="77" height="76"/>
         <image name="iButton.png" width="77" height="76"/>
@@ -486,7 +487,7 @@
         <image name="kButton.png" width="77" height="76"/>
         <image name="lButton.png" width="77" height="76"/>
         <image name="mButton.png" width="77" height="76"/>
-        <image name="margin.png" width="48" height="244"/>
+        <image name="margin.png" width="26" height="88"/>
         <image name="nButton.png" width="77" height="76"/>
         <image name="oButton.png" width="77" height="76"/>
         <image name="pButton.png" width="77" height="76"/>
