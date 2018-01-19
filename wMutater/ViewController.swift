@@ -446,6 +446,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    typedWord.text = ""
+
                     player2.play()
                     
                 }
@@ -455,6 +457,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                typedWord.text = ""
                 player2.play()
                 
                 
