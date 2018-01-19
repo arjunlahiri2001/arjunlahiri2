@@ -124,9 +124,9 @@
 			children = (
 				DC513C5F1FF83A360080031F /* background.png */,
 				DC4F6DEE1FFB1AC300438B41 /* backgroundMain.png */,
-                DC513C021FF825A00080031F /* frame.png */,
 				DC513BFA1FF821500080031F /* launchScreen.png */,
 				DC4F6DF21FFB1FA600438B41 /* margin.png */,
+				DC513C021FF825A00080031F /* frame.png */,
 				DC3A096B1FA925850089760E /* playGame.png */,
 				DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */,
 				DC513C611FF83AA40080031F /* typedWord.png */,
