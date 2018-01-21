@@ -111,7 +111,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             if(seconds == 0 || subWordListLength == 0){
                 mutatWord.text = String()
 //                ScoreOfGame.text = String()
-//                TimerOfTheGame.text = String()
+                TimerOfTheGame.text = String()
                 seconds = 0
                 typedWord.text = String()
                 messageOfWord.text = String()
@@ -895,6 +895,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     @objc var timeNoGame = 0
 
+    @IBOutlet weak var tapOnce: UILabel!
+    
     @objc func createButton(){                                                                                         
         timeNoGame += 1
         if(timeNoGame == 1){
@@ -910,10 +912,28 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         resetButton.layer.cornerRadius = 18
         resetButton.frame = CGRect(x: view.frame.width/2 - 50, y: view.frame.height/2 - 18, width: 100, height: 36)
         view.addSubview(resetButton)
+        tapOnce.text = "Tap only once"
+        super.viewDidLoad()
+
     }
     
+    func refreshView() {
+        
+        // Calling the viewDidLoad and viewWillAppear methods to "refresh" the VC and run through the code within the methods themselves
+        activityIndicator.startAnimating()
+
+        
+        super.viewDidAppear(true)
+       
+        
+    }
     
     @objc func resetGameLayout(resetButton: UIButton){
+        tapOnce.text = ""
+
+        self.refreshView()
+        activityIndicator.stopAnimating()
+
         qButton.isHidden = false
         wButton.isHidden = false
         eButton.isHidden = false
@@ -943,9 +963,9 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         deleteButton.isHidden = false
         enterWord.isHidden = false
 
-        
-       
-    
+
+
+
         timeNoGame = 0
         resetTimer() //reset timer
         score = 0
@@ -955,41 +975,44 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         messageOfWord.text = ""
 
         newHighScore.text = ""
-        
+
         var validWord = false
         currentWord = String()
         let numWords = dctWord.count
         self.resetButton.removeFromSuperview()
-        
+
         ScoreOfGame.text = "Score: \(0)"
-        
+
         // reset the list of entered words to empty
         enteredWords = Set<String>()
-        
+
         // Generate a new word between 10 and 3 characters
         while !validWord {
             let wordIdx = arc4random_uniform(_:UInt32(numWords))
             currentWord = dctNum[Int(wordIdx)]!
             if  (currentWord.count < 10 && currentWord.count > 3) {
-                
+
                 // DEBUG - REMOVE LATER
                 //print("Your lucky word is:", currentWord)
-                
+
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = subWordListLength + 100
+                seconds = 100 + numSubWordsLeft
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
-                
+
             }
+
         }
-        
+
         // Now generate the list of subwords for the word that was just given to the user
         // initialize list of actual subwords and the number of subwords left to be guessed
         subWordList = Set<String>()
         var wordArray:Array<Character> = Array(currentWord)
         PermuteAll(word: &wordArray)
+        numSubwordsLeft.text = "\(subWordListLength)"
+
 
         
     }
@@ -1028,7 +1051,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = subWordListLength + 100
+                    seconds = 100 + numSubWordsLeft
                     runTimer()
                     print(numSubWordsLeft)
                     

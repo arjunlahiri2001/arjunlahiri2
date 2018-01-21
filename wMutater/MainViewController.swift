@@ -28,6 +28,15 @@ var player2:AVAudioPlayer = AVAudioPlayer()
 
 var timesVisited = 0
 
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    // Override point for customization after application launch.
+    UINavigationBar.appearance().barTintColor = UIColor(red: 0, green: 0/255, blue: 205/255, alpha: 1)
+    UINavigationBar.appearance().tintColor = UIColor.white
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+    
+    return true
+}
+
  
 func InitDictionary(fileName: String) -> Int
 {
@@ -124,6 +133,8 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     override func viewDidAppear(_ animated: Bool) {
         player1.play()
         player1.numberOfLoops = -1
+        
+    
 
     }
 
