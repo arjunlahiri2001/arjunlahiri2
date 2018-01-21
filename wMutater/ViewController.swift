@@ -12,6 +12,8 @@
 
 import UIKit
 import AVFoundation
+import AudioToolbox
+
 
 // Read word list and create the dictionary
 
@@ -50,8 +52,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     
+    @IBOutlet weak var numSubwordsLeft: UILabel!
     
+    @IBOutlet weak var previousTypedWord: UILabel!
     
+    @IBOutlet weak var currentHighScore: UILabel!
     
     
     
@@ -102,11 +107,12 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         if(TimerOfTheGame.text != String()){
             TimerOfTheGame.text = "Timer: \(seconds)"
         }
-        if(seconds >= -1){
-            if(seconds == -1){
+        if(seconds >= -1 || subWordListLength > 0){
+            if(seconds == 0 || subWordListLength == 0){
                 mutatWord.text = String()
-                ScoreOfGame.text = String()
-                TimerOfTheGame.text = String()
+//                ScoreOfGame.text = String()
+//                TimerOfTheGame.text = String()
+                seconds = 0
                 typedWord.text = String()
                 messageOfWord.text = String()
                 seconds = Int(0)
@@ -147,6 +153,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 
                 }
         }
+
     }
     
     @objc func resetTimer(){
@@ -194,7 +201,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             HighScores.append(Scores.max()!)
             print(HighScores)
             if(HighScores[0] != 0){
-                newHighScore.text = "New High Score: \(Scores.max()!)"
+                if(HighScores[0] < 30){
+                    newHighScore.text = "You are an atomic whiz!! New High Score: \(Scores.max()!)"
+                    currentHighScore.text = "Current High Score: \(Scores.max()!)"
+                }else if(HighScores[0] >= 30 && HighScores[0] < 60){
+                    newHighScore.text = "You are an nuclear scientist!! New High Score: \(Scores.max()!)"
+                    currentHighScore.text = "Current High Score: \(Scores.max()!)"
+
+                }else if(HighScores[0] >= 60 && HighScores[0] <= 168){
+                    newHighScore.text = "You are the wordmutator!! New High Score: \(Scores.max()!)"
+                    currentHighScore.text = "Current High Score: \(Scores.max()!)"
+
+                }
             }
             
             //set path for the high score file
@@ -281,6 +299,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     // Generate all permutation of the word of size K that are also dictionary words
     var countPermut = 0
+    var subWordListLength = 0
     func Permute(word: inout Array<Character>, curr:Int, k:Int) {
         
         if (curr == (k - 1)) {
@@ -289,11 +308,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             if (dctWord[currPerm] != nil) {
                 //if len currPerm > 1
                     subWordList.insert(currPerm)
-                    countPermut += 1
-                    print(currPerm)
-                    print(countPermut)
+                
+                
             }
             
+            subWordListLength = subWordList.count
             
             return 
         }
@@ -422,6 +441,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         for character in ((typedWord.text))! {
             subWord += String(character)
         }
+
         subWord = subWord.lowercased()
         if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
@@ -434,11 +454,20 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     correctWords += 1
                     score += subWord.count
                     seconds += subWord.count + 1
-                    
+                    previousTypedWord.text = typedWord.text
+
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.green
                     typedWord.text = ""
                     messageOfWord.text = "Correct!!"
+                   
+                    subWordListLength -= 1
+                    print(subWordListLength)
+                    print(subWordList)
+
+                    numSubwordsLeft.text = "\(subWordListLength)"
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+
                     
                 }
                 else {
@@ -446,9 +475,13 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
                     messageOfWord.text = "Wrong!!"
+                    previousTypedWord.text = typedWord.text
+
                     typedWord.text = ""
 
                     player2.play()
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+
                     
                 }
             }
@@ -457,11 +490,27 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 ScoreOfGame.text = "Score: "+String(score)
                 mutatWord.textColor = UIColor.red
                 messageOfWord.text = "Word already used!!"
+                previousTypedWord.text = typedWord.text
                 typedWord.text = ""
                 player2.play()
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+
                 
                 
             }
+          
+        }
+        
+        if((typedWord.text?.count ) == 1){
+            ScoreOfGame.text = "Score: "+String(score)
+            mutatWord.textColor = UIColor.red
+            messageOfWord.text = "No single letters!!"
+            previousTypedWord.text = typedWord.text
+
+            typedWord.text = ""
+            player2.play()
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
         }
         
     }
@@ -821,6 +870,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
   
     override func viewDidLoad() {
        
+        player1.play()
+        player1.numberOfLoops = -1
+        
+        
 
         //have activity indicator to show that everything is being setup
         activityIndicator.center = self.view.center
@@ -924,7 +977,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 mutatWord.text = currentWord
                 mutatWord.textColor = UIColor.black
                 validWord = true
-                seconds = (((countPermut)*10) + 120)
+                seconds = subWordListLength + 100
                 TimerOfTheGame.text = "Timer: \(seconds)"
                 runTimer()
                 
@@ -946,6 +999,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         
+
             //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
             print(HighScores)
@@ -970,10 +1024,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                     
                     mutatWord.text = currentWord
                     validWord = true
-                    seconds = (((countPermut)*10) + 120)
+                    seconds = subWordListLength + 100
                     runTimer()
                     print(numSubWordsLeft)
-                    print(subWordList)
+                    
 
                     
                 }
@@ -986,8 +1040,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             PermuteAll(word: &wordArray)
             
            resetButton.addTarget(self, action: #selector(resetGameLayout(resetButton:)), for: .touchUpInside)
-     
-      
+           numSubwordsLeft.text = "\(subWordListLength)"
+
+        
+
     }
     
     

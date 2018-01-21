@@ -10,6 +10,7 @@
 		DC0980FF2011C26C0035AD9E /* margin.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0980FE2011C26B0035AD9E /* margin.png */; };
 		DC0981012011C2770035AD9E /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0981002011C2760035AD9E /* frame.png */; };
 		DC0981052011C2DE0035AD9E /* frame1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0981042011C2DD0035AD9E /* frame1.png */; };
+		DC09810920146E1D0035AD9E /* metalFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09810820146E1C0035AD9E /* metalFrame.png */; };
 		DC26536E1F460EE10025E1B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26536D1F460EE10025E1B5 /* MainViewController.swift */; };
 		DC32FC521F58B23400DF3C50 /* highScores.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC32FC511F58B23400DF3C50 /* highScores.txt */; };
 		DC3A096C1FA925850089760E /* playGame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A096B1FA925850089760E /* playGame.png */; };
@@ -61,6 +62,7 @@
 		DC0980FE2011C26B0035AD9E /* margin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = margin.png; sourceTree = "<group>"; };
 		DC0981002011C2760035AD9E /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		DC0981042011C2DD0035AD9E /* frame1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame1.png; sourceTree = "<group>"; };
+		DC09810820146E1C0035AD9E /* metalFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalFrame.png; sourceTree = "<group>"; };
 		DC26536D1F460EE10025E1B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DC32FC511F58B23400DF3C50 /* highScores.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = highScores.txt; sourceTree = "<group>"; };
 		DC3A096B1FA925850089760E /* playGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playGame.png; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				DC3A096B1FA925850089760E /* playGame.png */,
 				DC0981002011C2760035AD9E /* frame.png */,
 				DC0981042011C2DD0035AD9E /* frame1.png */,
+				DC09810820146E1C0035AD9E /* metalFrame.png */,
 				DC0980FE2011C26B0035AD9E /* margin.png */,
 				DC513BF81FF81F0E0080031F /* textBoxTypedWord.png */,
 				DC513C611FF83AA40080031F /* typedWord.png */,
@@ -313,6 +316,7 @@
 				DC7CD3A11FE622E400672E19 /* wButton.png in Resources */,
 				DC0980FF2011C26C0035AD9E /* margin.png in Resources */,
 				DCB73442200C56EF006ADB42 /* sButton.png in Resources */,
+				DC09810920146E1D0035AD9E /* metalFrame.png in Resources */,
 				DC513BFB1FF821510080031F /* launchScreen.png in Resources */,
 				DC7CD3A71FE622E400672E19 /* iButton.png in Resources */,
 				DC4F6DEF1FFB1AC400438B41 /* backgroundMain.png in Resources */,

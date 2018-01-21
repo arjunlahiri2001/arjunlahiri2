@@ -123,6 +123,7 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         player1.play()
+        player1.numberOfLoops = -1
 
     }
 
