@@ -199,6 +199,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
              
         }else {
             HighScores.append(Scores.max()!)
+            savedScore = Scores.max()!
             print(HighScores)
             if(HighScores[0] != 0){
                 if(HighScores[0] < 30){
@@ -1003,6 +1004,9 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             //Stop the activityIndicator animating once  everything is truly set up
             activityIndicator.stopAnimating()
             print(HighScores)
+        if(savedScore != 0){
+            currentHighScore.text = "Current High Score: \(savedScore)"
+        }
              UIApplication.shared.endIgnoringInteractionEvents()
             //Generate the random word and start the timer
             var validWord = false

@@ -17,7 +17,7 @@ var dctNum = [Int:String]();
 
 var Scores = [Int]()
 var HighScores = [Int]()
-var savedScores: [Int] = []
+var savedScore = 0
  
 
 
