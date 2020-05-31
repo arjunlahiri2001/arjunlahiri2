@@ -58,8 +58,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     @IBOutlet weak var currentHighScore: UILabel!
     
+    @IBOutlet weak var bonusPoints: UILabel!
     
-    
+    var bonusPs = 0
+
     
     
     @objc var correctWords = 0
@@ -117,6 +119,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
                 messageOfWord.text = String()
                 seconds = Int(0)
                 countPermut = Int(0)
+                bonusPoints.text = "Bonus points for entering all possible words: +\(bonusPs))"
                 qButton.isHidden = true
                 wButton.isHidden = true
                 eButton.isHidden = true
@@ -148,6 +151,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
 
                 createButton()
                 
+                
                 }else{
                     seconds -= 1
                 
@@ -162,36 +166,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     }
     //END: 3 functions relating to timer
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    var x = 0
-    
-    
     //High Score file writing-------------------------------------------------
     @objc func highScores(){
         let contains = HighScores.contains(Scores.max()!)
@@ -202,15 +176,19 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             savedScore = Scores.max()!
             print(HighScores)
             if(HighScores[0] != 0){
-                if(HighScores[0] < 30){
-                    newHighScore.text = "You are an atomic whiz!! New High Score: \(Scores.max()!)"
+                if(HighScores[0] < 10){
+                    newHighScore.text = "Nice start!! New High Score: \(Scores.max()!)"
                     currentHighScore.text = "Current High Score: \(Scores.max()!)"
-                }else if(HighScores[0] >= 30 && HighScores[0] < 60){
-                    newHighScore.text = "You are an nuclear scientist!! New High Score: \(Scores.max()!)"
+                    
+                }else if (HighScores[0] >= 10 && HighScores[0] < 30){
+                    newHighScore.text = "You are an atomic wizard!! New High Score: \(Scores.max()!)"
+                    currentHighScore.text = "Current High Score: \(Scores.max()!)"
+                }else if(HighScores[0] >= 30 && HighScores[0] < 170){
+                    newHighScore.text = "You are a nuclear scientist!! New High Score: \(Scores.max()!)"
                     currentHighScore.text = "Current High Score: \(Scores.max()!)"
 
-                }else if(HighScores[0] >= 60 && HighScores[0] <= 168){
-                    newHighScore.text = "You are the wordmutator!! New High Score: \(Scores.max()!)"
+                }else if(HighScores[0] >= 170){
+                    newHighScore.text = "You are the Wordmutator!! New High Score: \(Scores.max()!)"
                     currentHighScore.text = "Current High Score: \(Scores.max()!)"
 
                 }
@@ -262,14 +240,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+
 
  
     // Determine if a word is a valid subWord of the given word
@@ -284,7 +255,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             var wordChars = Array(word)
             for letter in subWordChars {
                 if (wordChars.contains(letter)) {
-                    let letterIdx = wordChars.index(of:letter)
+                    let letterIdx = wordChars.firstIndex(of:letter)
                     wordChars.remove(at:letterIdx!)
                 }
                 else {
@@ -447,35 +418,76 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         if((mutatWord.text != "" || mutatWord.text != String()) && subWord.count > 1){
             if (!enteredWords.contains(subWord)) {
                 if (WordCheck(word:currentWord, subWord: subWord) == true) {
+                    if(subWordListLength == 1){
+                        player.play()
+                        score += (subWordList.count / 2) + subWord.count
+                        ScoreOfGame.text = "Score: "+String(score)
+                        mutatWord.textColor = UIColor.green
+                        typedWord.text = ""
+                        messageOfWord.text = "Correct!!"
+                        subWordListLength -= 1
+                        print(subWordListLength)
+                        print(subWordList)
+                        numSubwordsLeft.text = "\(subWordListLength)"
+                        player.play()
+                        bonusPs = ((subWordList.count / 2) + subWord.count)
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                       
+                    }else{
                     
-                    
-                    player.play() //plays sound when correct
-                    //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
-                    enteredWords.insert(subWord)
-                    correctWords += 1
-                    score += subWord.count
-                    seconds += subWord.count + 1
-                    previousTypedWord.text = typedWord.text
-
-                    ScoreOfGame.text = "Score: "+String(score)
-                    mutatWord.textColor = UIColor.green
-                    typedWord.text = ""
-                    messageOfWord.text = "Correct!!"
+                        player.play() //plays sound when correct
+                        //print("Great! You have", numSubWordsLeft, "subwords left to go. Score:",score)
+                        enteredWords.insert(subWord)
+                        correctWords += 1
+                        score += subWord.count
                    
-                    subWordListLength -= 1
-                    print(subWordListLength)
-                    print(subWordList)
+                        seconds += subWord.count + 1
+                        previousTypedWord.text = typedWord.text
 
-                    numSubwordsLeft.text = "\(subWordListLength)"
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                        ScoreOfGame.text = "Score: "+String(score)
+                        mutatWord.textColor = UIColor.green
+                        typedWord.text = ""
+                        messageOfWord.text = "Correct!!"
+                   
+                        subWordListLength -= 1
+                        print(subWordListLength)
+                        print(subWordList)
+
+                        numSubwordsLeft.text = "\(subWordListLength)"
+                        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    }
 
                     
                 }
-                else {
+                else if(WordCheck(word:currentWord, subWord: subWord) == false){
                     // print("Boo! Wrong word. You still have", numSubWordsLeft, "Score:",score)
                     ScoreOfGame.text = "Score: "+String(score)
                     mutatWord.textColor = UIColor.red
-                    messageOfWord.text = "Wrong!!"
+                    messageOfWord.text = "No such word!!"
                     previousTypedWord.text = typedWord.text
 
                     typedWord.text = ""
@@ -623,8 +635,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
             word += "o"
             typedWord.text = word
         }
-        
-       
     }
     
     @IBAction func pButton(_ sender: Any) {
@@ -866,11 +876,40 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
 //-------------------------------------------------------------------------------------------------
     
     
-  
+    @IBOutlet weak var messTital: UILabel!
+    @IBOutlet weak var wordsLeftTital: UILabel!
+    @IBOutlet weak var typedWordTital: UILabel!
+    @IBOutlet weak var WordMutatorTitle: UILabel!
+    
     
   
     override func viewDidLoad() {
        
+        let deviceType = String(UIDevice.current.model)
+//        let screenSize = UIScreen.main.bounds
+//        let screenWidth = screenSize.width
+//        let screenHeight = screenSize.height
+        
+        if(deviceType.contains("iPad") != false ){
+            numSubwordsLeft.font = UIFont.systemFont(ofSize: 22)
+            previousTypedWord.font = UIFont.systemFont(ofSize: 22)
+            currentHighScore.font = UIFont.systemFont(ofSize: 40)
+            bonusPoints.font = UIFont.systemFont(ofSize: 28)
+            mutatWord.font = UIFont.systemFont(ofSize: 64)
+            ScoreOfGame.font = UIFont.systemFont(ofSize: 40)
+            newHighScore.font = UIFont.systemFont(ofSize: 28)
+            TimerOfTheGame.font = UIFont.systemFont(ofSize: 50)
+            messageOfWord.font = UIFont.systemFont(ofSize: 22)
+            typedWord.font = UIFont.systemFont(ofSize: 28)
+            tapOnce.font = UIFont.systemFont(ofSize: 30)
+            messTital.font = UIFont.systemFont(ofSize: 38)
+            wordsLeftTital.font = UIFont.systemFont(ofSize: 38)
+            typedWordTital.font = UIFont.systemFont(ofSize: 38)
+            WordMutatorTitle.font = UIFont.systemFont(ofSize: 70)
+        }
+        
+        
+        
         player1.play()
         player1.numberOfLoops = -1
         
@@ -879,7 +918,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         //have activity indicator to show that everything is being setup
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -912,7 +951,9 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
         resetButton.layer.cornerRadius = 18
         resetButton.frame = CGRect(x: view.frame.width/2 - 50, y: view.frame.height/2 - 18, width: 100, height: 36)
         view.addSubview(resetButton)
-        tapOnce.text = "Tap only once"
+        tapOnce.text = "Tap only once and wait!"
+        currentHighScore.text = "Current High Score: \(Scores.max()!)"
+
         super.viewDidLoad()
 
     }
@@ -930,7 +971,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
     
     @objc func resetGameLayout(resetButton: UIButton){
         tapOnce.text = ""
-
+        bonusPoints.text = ""
         self.refreshView()
         activityIndicator.stopAnimating()
 
@@ -1020,7 +1061,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
 
     
     
-    
     override func viewDidAppear(_ animated: Bool) {
         
 
@@ -1083,9 +1123,3 @@ class ViewController: UIViewController, UIPageViewControllerDelegate{
  
 
 }
-
-
-
-
-
-

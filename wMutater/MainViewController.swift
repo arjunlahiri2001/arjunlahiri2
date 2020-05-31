@@ -9,6 +9,22 @@
 import UIKit
 import AVFoundation
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // First dictionary maps words to a sequence number (use this to check if a word exists)
 var dctWord = [String: Int]();
 
@@ -24,6 +40,7 @@ var savedScore = 0
 var player:AVAudioPlayer = AVAudioPlayer()
 var player1:AVAudioPlayer = AVAudioPlayer()
 var player2:AVAudioPlayer = AVAudioPlayer()
+
 // high scores
 
 var timesVisited = 0
@@ -32,7 +49,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
     // Override point for customization after application launch.
     UINavigationBar.appearance().barTintColor = UIColor(red: 0, green: 0/255, blue: 205/255, alpha: 1)
     UINavigationBar.appearance().tintColor = UIColor.white
-    UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     
     return true
 }
@@ -40,6 +57,21 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
  
 func InitDictionary(fileName: String) -> Int
 {
+  
+    
+//    print(UIDevice.current.model)
+    let screenSize = UIScreen.main.bounds
+    let screenWidth = screenSize.width
+    let screenHeight = screenSize.height
+    
+    if((screenWidth < 768 && screenWidth >= 414) && (screenHeight < 1024 && screenHeight >= 736)){
+        
+        
+    }
+    
+    print(screenWidth)
+    print(screenHeight)
+    
     print(Bundle.main.resourceURL!)
     let path2 = Bundle.main.path(forResource: "words", ofType: "txt")
     if (path2 != nil) {
@@ -73,6 +105,7 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     
     var pageViewController: UIPageViewController?
     
+    @IBOutlet weak var descriptionParagraph: UILabel!
     
     open override var shouldAutorotate: Bool{
         get{
@@ -96,6 +129,15 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
     }
     
     override func viewDidLoad() {
+        let deviceType = String(UIDevice.current.model)
+
+        if(deviceType.contains("iPad") != false ){
+            descriptionParagraph.font = UIFont.systemFont(ofSize: 30)
+            
+            
+            
+            
+        }
         timesVisited += 1
             //reference sound file for the game
         if(timesVisited == 1){
@@ -108,6 +150,8 @@ class MainViewController: UIViewController , UIPageViewControllerDelegate{
                 
                 let audioPath2 = Bundle.main.path(forResource: "error", ofType: "wav")
                 try player2 = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath2!) as URL)
+                
+                
                 
             }
             catch{

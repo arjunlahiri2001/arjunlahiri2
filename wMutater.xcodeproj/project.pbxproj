@@ -11,6 +11,7 @@
 		DC0981012011C2770035AD9E /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0981002011C2760035AD9E /* frame.png */; };
 		DC0981052011C2DE0035AD9E /* frame1.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0981042011C2DD0035AD9E /* frame1.png */; };
 		DC09810920146E1D0035AD9E /* metalFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09810820146E1C0035AD9E /* metalFrame.png */; };
+		DC0C8CCE2015949700CE70D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC0C8CCD2015949700CE70D3 /* Images.xcassets */; };
 		DC26536E1F460EE10025E1B5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26536D1F460EE10025E1B5 /* MainViewController.swift */; };
 		DC32FC521F58B23400DF3C50 /* highScores.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC32FC511F58B23400DF3C50 /* highScores.txt */; };
 		DC3A096C1FA925850089760E /* playGame.png in Resources */ = {isa = PBXBuildFile; fileRef = DC3A096B1FA925850089760E /* playGame.png */; };
@@ -63,6 +64,7 @@
 		DC0981002011C2760035AD9E /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		DC0981042011C2DD0035AD9E /* frame1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame1.png; sourceTree = "<group>"; };
 		DC09810820146E1C0035AD9E /* metalFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalFrame.png; sourceTree = "<group>"; };
+		DC0C8CCD2015949700CE70D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DC26536D1F460EE10025E1B5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DC32FC511F58B23400DF3C50 /* highScores.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = highScores.txt; sourceTree = "<group>"; };
 		DC3A096B1FA925850089760E /* playGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playGame.png; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				DC4F6DFC1FFC5C0700438B41 /* StoryboardViews */,
 				DC92DE7C1F42A42E0074B41C /* Assets.xcassets */,
 				DC92DE811F42A42E0074B41C /* Info.plist */,
+				DC0C8CCD2015949700CE70D3 /* Images.xcassets */,
 			);
 			path = wMutater;
 			sourceTree = "<group>";
@@ -271,20 +274,20 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Arjun Lahiri";
 				TargetAttributes = {
 					DC92DE711F42A42E0074B41C = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Y3FF8K78NY;
-						LastSwiftMigration = 0920;
+						DevelopmentTeam = RN39XEZS47;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = DC92DE6D1F42A42E0074B41C /* Build configuration list for PBXProject "wMutater" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -330,6 +333,7 @@
 				DC92DE7D1F42A42E0074B41C /* Assets.xcassets in Resources */,
 				DC7CD3AD1FE622E400672E19 /* dButton.png in Resources */,
 				DC7CD3801FE5F8D200672E19 /* qButton.png in Resources */,
+				DC0C8CCE2015949700CE70D3 /* Images.xcassets in Resources */,
 				DC7CD39C1FE622E400672E19 /* rButton.png in Resources */,
 				DC4F6DFB1FFC42D300438B41 /* error.wav in Resources */,
 				DC6E26E71F43D870006787C3 /* words.txt in Resources */,
@@ -393,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -402,6 +407,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -409,6 +415,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -448,6 +455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -457,6 +465,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -464,6 +473,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -498,15 +508,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y3FF8K78NY;
+				DEVELOPMENT_TEAM = RN39XEZS47;
 				INFOPLIST_FILE = wMutater/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AL.wMutater;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TL2.wMutater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -516,15 +526,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y3FF8K78NY;
+				DEVELOPMENT_TEAM = RN39XEZS47;
 				INFOPLIST_FILE = wMutater/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AL.wMutater;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TL2.wMutater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
